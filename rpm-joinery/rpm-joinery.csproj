@@ -7,6 +7,37 @@
     <RootNamespace>rpm_joinery</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\img\19424335_710714665795716_1994396379010093218_n.jpg" />
+    <None Include="wwwroot\img\19424492_710714569129059_2212323344021361623_n.jpg" />
+    <None Include="wwwroot\img\19437239_710714609129055_3392062993604650676_n.jpg" />
+    <None Include="wwwroot\img\19510567_710714689129047_9019459172348623631_n.jpg" />
+    <None Include="wwwroot\img\ArtsLogo.png" />
+    <None Include="wwwroot\img\ArtsLogo2.PNG" />
+    <None Include="wwwroot\img\carousel_bathroom.jpeg" />
+    <None Include="wwwroot\img\carousel_doorswindows.jpeg" />
+    <None Include="wwwroot\img\carousel_kitchen.jpeg" />
+    <None Include="wwwroot\img\commercial.jpg" />
+    <None Include="wwwroot\img\DttLogo.png" />
+    <None Include="wwwroot\img\DttLogo2.png" />
+    <None Include="wwwroot\img\facebook.png" />
+    <None Include="wwwroot\img\favicon.ico" />
+    <None Include="wwwroot\img\fence.jpeg" />
+    <None Include="wwwroot\img\project1.jpg" />
+    <None Include="wwwroot\img\project2.jpg" />
+    <None Include="wwwroot\img\project3.jpg" />
+    <None Include="wwwroot\img\rpmBig.png" />
+    <None Include="wwwroot\img\rpmfavicon.ico" />
+    <None Include="wwwroot\img\rpmlogo.png" />
+    <None Include="wwwroot\img\rpmvan.jpg" />
+    <None Include="wwwroot\img\services.jpeg" />
+    <None Include="wwwroot\img\services.jpg" />
+    <None Include="wwwroot\img\services1.jpg" />
+    <None Include="wwwroot\img\toolkit.jpg" />
+    <None Include="wwwroot\img\toolkit2.jpg" />
+    <None Include="wwwroot\img\toolkit3.jpg" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="bootstrap" Version="4.3.1" />
