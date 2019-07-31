@@ -13,66 +13,137 @@
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
               crossorigin="anonymous"
-              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"/>
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <!-- Navigation -->
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top navcurve">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">rpm_joinery</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <!-- <a class="navbar-brand" href="index.html">Start Bootstrap</a> -->
+                <a href="@Url.Action("Index","Home")"> <img src="../../img/rpmlogo.png" width="150px" alt="RPM Joinery Logo"> </a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" id="home-link" href="@Url.Action("Index","Home")">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link" id="about-link" href="@Url.Action("About","Home")">About</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="services-link" href="@Url.Action("Services","Home")">Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="contact-link" href="@Url.Action("Contact","Home")">Contact</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="projects-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Projects
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                                <a class="dropdown-item" href="@Url.Action("Index","Projects")">All </a>
+                                <a class="dropdown-item" href="@Url.Action("Kitchens","Projects")">Kitchens</a>
+                                <a class="dropdown-item" href="@Url.Action("Bathroom","Projects")">Bathrooms & Wet Walls</a>
+                                <a class="dropdown-item" href="@Url.Action("WindowsDoors","Projects")">Windows & Doors</a>
+                                <a class="dropdown-item" href="@Url.Action("DeckingFencing","Projects")">Decking & Fencing</a>
+                                <a class="dropdown-item" href="@Url.Action("Maintenance","Projects")">General maintenance</a>
+                            </div>
+                        </li>
+
+                        @*@if (Request.IsAuthenticated)
+                            {
+                                <li>
+                                    <form method="post" action="@Url.Action("LogOff", "Account")" id="signoutfrm" style="display:none;">
+                                        @Html.AntiForgeryToken()
+                                    </form>
+                                    <a href="" class="btn btn-danger" onclick="$('#signoutfrm').submit(); return false;">Log Out</a>
+                                </li>
+                            }*@
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <partial name="_CookieConsentPartial" />
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+
+
+    <!-- Main Render Entry Point -->
+    <partial name="_CookieConsentPartial" />
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+
+    <div class="credit-container" id="credit-container">
+        <a href="@Url.Action("About","Home")"> <img src="../../img/DttLogo.png" height="64" alt="Dundee Trusted Trader Scheme Logo" align="middle"> </a>
+        <a href="@Url.Action("About","Home")"> <img src="../../img/ArtsLogo.png" height="64" alt="Angus Reputable Trader Logo" align="middle"> </a>
+        <a href="https://www.facebook.com/rpmjoinerydundee/"> <img src="../../img/facebook.png" height="64" alt="Like us on Facebook Logo" align="middle"> </a>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <div class="pre-footer">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
         <div class="container">
-            &copy; 2019 - rpm_joinery - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row centered">
+                <div class="col-md-4">
+                    <h5><b>Contact</b></h5>
+                    <p>4 Valentine Court<br />Dunsinane Industrial Estate, Dundee<br />DD2 3QB <br /> Scotland</p>
+                    <span class="fa fa-phone"></span> <abbr title="Phone">P</abbr>: 07970 058622
+                    <br />
+                    <span class="fa fa-envelope"></span>
+                    <abbr title="Email">E</abbr>:
+                    <a href="mailto:rpmdundee@gmail.com">
+                        rpmdundee@gmail.com
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <h5><b>Useful Links</b></h5>
+                    <h6><a href="@Url.Action("About","Home")">About</a> <a href="@Url.Action("Contact","Home")">Contact</a></h6>
+                    <h6><a href="@Url.Action("Services","Home")">Services</a> <a href="@Url.Action("Index","Projects")">Projects</a></h6>
+                    <h6><a href="@Url.Action("Kitchens","Projects")">Kitchens</a> <a href="@Url.Action("Bathroom","Projects")">Bathrooms</a></h6>
+                    <h6><a href="@Url.Action("DeckingFencing","Projects")">Decking</a> <a href="@Url.Action("WindowsDoors","Projects")">Windows</a></h6>
+                    <a href="@Url.Action("Maintenance","Projects")">Maintenance</a>
+                </div>
+                <div class="col-md-4">
+                    <br />
+                    <h6><a href="#">XML Site Map</a></h6>
+                    <h6><a href="@Url.Action("Cookie","Home")">Cookie Policy</a></h6>
+                    <h6><a href="@Url.Action("Login","Account")">RPM Login</a></h6>
+                </div>
+            </div>
         </div>
-    </footer>
+    </div>
 
-    <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
-        </script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
-        </script>
-    </environment>
-    <script src="~/js/site.js" asp-append-version="true"></script>
 
-    @RenderSection("Scripts", required: false)
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+    <p class="m-0 text-center text-white">Copyright &copy; RPM Joinery & Maintainance 2019</p>
+    <p class="m-0 text-center text-white">Website Design by Gary Gillespie</p>
+    <!-- /.container -->
+</footer>
+
+<environment include="Development">
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+</environment>
+<environment exclude="Development">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+            asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+            asp-fallback-test="window.jQuery"
+            crossorigin="anonymous"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+            asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+            asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+            crossorigin="anonymous"
+            integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
+    </script>
+</environment>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+@RenderSection("Scripts", required: false)
 </body>
 </html>
