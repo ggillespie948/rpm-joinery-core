@@ -1,0 +1,89 @@
+﻿@model List<rpm_joinery.Models.Project>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner" role="listbox">
+        <div class="overlay">
+            <img src="~/img//carousel-overlay-1.png" class="image-responsive" data-aos="fade-right" data-aos-duration="3000" />
+        </div>
+        <div class="overlay-right">
+            <img src="~/img//carousel-overlay-2.png" class="image-responsive" data-aos="fade-left" data-aos-duration="3000" />
+        </div>
+        <div class="overlay-right">
+            <img src="~/img//carousel-overlay-3.png" class="image-responsive" data-aos="fade-left" data-aos-duration="3000" />
+        </div>
+        <div class="overlay">
+            <img src="~/img//carousel-overlay-4.png" class="image-responsive" data-aos="fade-right" data-aos-duration="2500" />
+        </div>
+        <div class="carousel-item active" data-parallax="scroll" data-image-src="../img/projects-header.jpg" style="background-image: url(../img/projects-header.jpg)">
+            <div class="carousel-caption">
+                <h1 class="carousel-title"><span class="reveal">Projects</span></h1>
+                <h4><span class="reveal">A selection of some of our latest work.</span></h4>
+                <br />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <br />
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="@Url.Action("Index", "Home")">Home</a>
+        </li>
+        <li class="breadcrumb-item active">Projects</li>
+    </ol>
+    <div class="row">
+        <div class="col-sm-12 col-md-8">
+            <h2>
+                Projects
+            </h2>
+            <h5 style="color:darkslategrey">
+                Below is a selection of some of our latest client projects.
+            </h5>
+            <h5 style="color:darkslategrey">
+                This selection of projects ranges from domestic to commerical work offered at a range of affordable prices.
+            </h5>
+        </div>
+        <div class="col-sm-12 col-md-4">
+            <img class="img-fluid rounded mb-4" src="../../img/rpmBig.png" data-aos="fade-up" data-aos-delay="200" alt="RPM Joinery Logo">
+        </div>
+    </div>
+
+    <ul class="cards">
+        @{ 
+            var delayOffset = 0;
+        }
+        @foreach (var project in Model)
+        {
+            <li class="cards_item" data-aos="fade-up" data-aos-delay="@delayOffset">
+                <div class="card">
+                    <div class="card_image"><img class="card-img-top" src='@project.Images[0].ImageFilePath'></div>
+                    <div class="card_content">
+                        <h2 class="card_title">@project.Title</h2>
+                        @if(project.Description.Length > 80)
+                        {
+                            <p class="card_text">@project.Description.Substring(0,80)...</p>
+                        } else
+                        {
+                            <p class="card_text">@project.Description</p>
+                        }
+                        <a class="btn card_btn" href="@Url.Action("Details", "Projects", new { id = project.Id })">Read More</a>
+                    </div>
+                </div>
+            </li>
+            delayOffset = delayOffset + 250;
+        }
+    </ul>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $('#projects-link').addClass('active');
+    </script>
+    <script>
+        AOS.init();
+    </script>
+}
