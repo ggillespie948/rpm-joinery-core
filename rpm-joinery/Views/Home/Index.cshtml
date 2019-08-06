@@ -2,6 +2,30 @@
     ViewData["Title"] = "Home Page";
 }
 
+<!-- Load Facebook SDK for JavaScript -->
+<div id="fb-root"></div>
+<script>
+    window.fbAsyncInit = function () {
+        FB.init({
+            xfbml: true,
+            version: 'v4.0'
+        });
+    };
+
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/en_GB/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- Your customer chat code -->
+<div class="fb-customerchat"
+     attribution=setup_tool
+     page_id="106613147349638">
+</div>
+
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -10,28 +34,48 @@
         <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
     </ol>
     <div class="carousel-inner" role="listbox">
+        <div class="overlay">
+            <img src="~/img//carousel-overlay-1.png" class="image-responsive" data-aos="fade-right" data-aos-duration="3000" />
+        </div>
+        <div class="overlay-right">
+            <img src="~/img//carousel-overlay-2.png" class="image-responsive" data-aos="fade-left" data-aos-duration="3000" />
+        </div>
+        <div class="overlay-right">
+            <img src="~/img//carousel-overlay-3.png" class="image-responsive" data-aos="fade-left" data-aos-duration="3000" />
+        </div>
+        <div class="overlay">
+            <img src="~/img//carousel-overlay-4.png" class="image-responsive" data-aos="fade-right" data-aos-duration="2500" />
+        </div>
         <!-- Slide One - Set the background image for this slide in the line below -->
-        <div class="carousel-item active" style="background-image: url(../img/carousel_kitchen.jpeg)">
-            <div class="carousel-caption d-none d-md-block">
-                <h3>Kitchens</h3>
+        <div class="carousel-item active" data-parallax="scroll" data-image-src="../img/carousel_kitchen.jpeg" style="background-image: url(../img/carousel_kitchen.jpeg)">
+            <div class="carousel-caption">
+                <h1 class="carousel-title"><span class="reveal">Kitchens</span></h1>
+                <a href="#" class="btn btn-lg btn-carousel" data-aos="fade-up" data-aos-delay="200"> Learn More </a>
+                <a href="#" class="btn btn-lg btn-carousel" data-aos="fade-up" data-aos-delay="400"> Contact Us </a>
             </div>
         </div>
         <!-- Slide Two - Set the background image for this slide in the line below -->
         <div class="carousel-item" style="background-image: url('../img/carousel_bathroom.jpeg')">
-            <div class="carousel-caption d-none d-md-block">
-                <h3>Bathrooms</h3>
+            <div class="carousel-caption">
+                <h1 class="carousel-title"><span class="reveal">Bathrooms</span></h1>
+                <a href="#" class="btn btn-lg btn-carousel" data-aos="fade-up" data-aos-delay="200"> Learn More </a>
+                <a href="#" class="btn btn-lg btn-carousel" data-aos="fade-up" data-aos-delay="400"> Contact Us </a>
             </div>
         </div>
         <!-- Slide Three - Set the background image for this slide in the line below -->
         <div class="carousel-item" style="background-image: url('../img/carousel_doorswindows.jpeg')">
-            <div class="carousel-caption d-none d-md-block">
-                <h3>Doors & Windows</h3>
+            <div class="carousel-caption">
+                <h1 class="carousel-title"><span class="reveal">Doors & Windows</span></h1>
+                <a href="#" class="btn btn-lg btn-carousel" data-aos="fade-up" data-aos-delay="200"> Learn More </a>
+                <a href="#" class="btn btn-lg btn-carousel" data-aos="fade-up" data-aos-delay="400"> Contact Us </a>
             </div>
         </div>
         <!-- Slide Four - Set the background image for this slide in the line below -->
         <div class="carousel-item" style="background-image: url('../img/commercial.jpg')">
-            <div class="carousel-caption d-none d-md-block">
-                <h3>Commercial</h3>
+            <div class="carousel-caption">
+                <h1 class="carousel-title"><span class="reveal">Commercial</span></h1>
+                <a href="#" class="btn btn-lg btn-carousel" data-aos="fade-up" data-aos-delay="200"> Learn More </a>
+                <a href="#" class="btn btn-lg btn-carousel" data-aos="fade-up" data-aos-delay="400"> Contact Us </a>
             </div>
         </div>
     </div>
@@ -68,12 +112,14 @@
             </ul>
             <p>For a comprehensive list of all of the services we offer, please visit the <a href="@Url.Action("Services","Home")">services page </a>. You can also view relevant work we have carried out recently in our <a href="@Url.Action("Index","Projects")">projects page</a>.
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-6 d-none d-lg-block">
             <img class="img-fluid rounded" src="../../img/rpmBig.png" alt="RPM Logo large">
         </div>
     </div>
     <!-- Contact Section -->
     <hr>
+
+
     <div class="row mb-4">
         <div class="col-md-8">
             <div class="centerDiv">
@@ -81,45 +127,87 @@
             </div>
         </div>
         <div class="col-md-4">
-            <a class="btn btn-lg btn-primary btn-block" href="@Url.Action("Contact", "Home")">Make An Enquiry</a>
+            <a class="btn btn-lg btn-dark btn-block" href="@Url.Action("Contact", "Home")">Make An Enquiry</a>
         </div>
     </div>
     <hr />
-    <!-- Portfolio Section -->
-    @*<h2>Portfolio: Recent Projects</h2>
+    <div class="text-center">
+        <h2> Check out some of our previous work. </h2>
+    </div>
+    <br />
     <div class="row">
-        @foreach (var item in Model)
-        {
-            <div class="col-lg-4 col-sm-6 portfolio-item">
-                <div class="card h-100">
-                    <a href="@Url.Action("Details", "Projects", new { id = item.Id })"><img class="card-img-top" src="@Html.DisplayFor(modelItem => item.ImgFilePath)" alt="@Html.DisplayFor(modelItem => item.ImgDescription)"></a>
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="@Url.Action("Details", "Projects", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Title)</a>
-                        </h4>
-                        <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+        <ul class="cards">
+            <li class="cards_item" data-aos="fade-up" data-aos-delay="0">
+                <div class="card">
+                    <div class="card_image"><img class="card-img-top" src="https://localhost:44327/img/rpmBig.png"></div>
+                    <div class="card_content">
+                        <h2 class="card_title">Card Grid Layout</h2>
+                        <p class="card_text">Demo of pixel perfect pure CSS simple responsive card grid layout</p>
+                        <button class="btn card_btn">Read More</button>
                     </div>
                 </div>
-            </div>
-        }
-
-        <div class="col-md-12 text-center">
-            <a href="@Url.Action("Index", "Projects")" class="btn btn-lg btn-primary">View Full Portfolio</a>
-            <br>
-            <br>
-            <br>
-            <br>
-        </div>
-    </div>*@
-    <!-- /.row -->
-
-
-
+            </li>
+            <li class="cards_item" data-aos="fade-up" data-aos-delay="200">
+                <div class="card">
+                    <div class="card_image"><img class="card-img-top" src="https://picsum.photos/500/300/?image=5"></div>
+                    <div class="card_content">
+                        <h2 class="card_title">Card Grid Layout</h2>
+                        <p class="card_text">Demo of pixel perfect pure CSS simple responsive card grid layout</p>
+                        <button class="btn card_btn">Read More</button>
+                    </div>
+                </div>
+            </li>
+            <li class="cards_item" data-aos="fade-up" data-aos-delay="400">
+                <div class="card">
+                    <div class="card_image"><img class="card-img-top" src="https://picsum.photos/500/300/?image=11"></div>
+                    <div class="card_content">
+                        <h2 class="card_title">Card Grid Layout</h2>
+                        <p class="card_text">Demo of pixel perfect pure CSS simple responsive card grid layout</p>
+                        <button class="btn card_btn">Read More</button>
+                    </div>
+                </div>
+            </li>
+            <li class="cards_item" data-aos="fade-up" data-aos-delay="0">
+                <div class="card">
+                    <div class="card_image"><img class="card-img-top" src="https://picsum.photos/500/300/?image=14"></div>
+                    <div class="card_content">
+                        <h2 class="card_title">Card Grid Layout</h2>
+                        <p class="card_text">Demo of pixel perfect pure CSS simple responsive card grid layout</p>
+                        <button class="btn card_btn">Read More</button>
+                    </div>
+                </div>
+            </li>
+            <li class="cards_item" data-aos="fade-up" data-aos-delay="200">
+                <div class="card">
+                    <div class="card_image"><img class="card-img-top" src="https://picsum.photos/500/300/?image=17"></div>
+                    <div class="card_content">
+                        <h2 class="card_title">Card Grid Layout</h2>
+                        <p class="card_text">Demo of pixel perfect pure CSS simple responsive card grid layout</p>
+                        <button class="btn card_btn">Read More</button>
+                    </div>
+                </div>
+            </li>
+            <li class="cards_item" data-aos="fade-up" data-aos-delay="400">
+                <div class="card">
+                    <div class="card_image"><img class="card-img-top" src="https://picsum.photos/500/300/?image=2"></div>
+                    <div class="card_content">
+                        <h2 class="card_title">Card Grid Layout</h2>
+                        <p class="card_text">Demo of pixel perfect pure CSS simple responsive card grid layout</p>
+                        <button class="btn card_btn">Read More</button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
 
 </div>
 <!-- /.container -->
 @section Scripts {
     <script type="text/javascript">
+        $(".navbar").removeClass('bg-dark');
+        $(".navbar").addClass('bg-dark-transparent');
         $('#home-link').addClass('active');
     </script>
+
+    
 }
