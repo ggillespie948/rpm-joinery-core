@@ -1,0 +1,134 @@
+﻿
+
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner" role="listbox">
+        <div class="overlay">
+            <img src="~/img//carousel-overlay-1.png" class="image-responsive" data-aos="fade-right" data-aos-duration="3000" />
+        </div>
+        <div class="overlay-right">
+            <img src="~/img//carousel-overlay-2.png" class="image-responsive" data-aos="fade-left" data-aos-duration="3000" />
+        </div>
+        <div class="overlay-right">
+            <img src="~/img//carousel-overlay-3.png" class="image-responsive" data-aos="fade-left" data-aos-duration="3000" />
+        </div>
+        <div class="overlay">
+            <img src="~/img//carousel-overlay-4.png" class="image-responsive" data-aos="fade-right" data-aos-duration="2500" />
+        </div>
+        <!-- Slide One - Set the background image for this slide in the line below -->
+        <div class="carousel-item active" data-parallax="scroll" data-image-src="../img/services-header.jpg" style="background-image: url(../img/services-header.jpg)">
+            <div class="carousel-caption">
+                <h1 class="carousel-title"><span class="reveal">Services</span></h1>
+                <h4><span class="reveal">Whatever your joinery needs our team have the skills and experience to help.</span></h4>
+                <br />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <br />
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="@Url.Action("Index", "Home")">Home</a>
+        </li>
+        <li class="breadcrumb-item active">Services</li>
+    </ol>
+    <div class="row">
+        <div class="col-sm-12 col-md-8">
+            <h2>
+                Services
+            </h2>
+            <h5 style="color:darkslategrey">
+                Whether you are looking to get your dream home built or just upgrade your home with our range of construction services?
+            </h5>
+            <h5 style="color:darkslategrey">
+                Whether you are looking to get your dream home built or just upgrade your home with our range of construction services?
+            </h5>
+        </div>
+        <div class="col-sm-12 col-md-4">
+            <img class="img-fluid rounded mb-4" src="../../img/rpmBig.png" data-aos="fade-up" data-aos-delay="200" alt="RPM Joinery Logo">
+        </div>
+    </div>
+    <br />
+
+    <!-- Marketing Icons Section -->
+    <div class="row">
+        <div class="col-lg-4 mb-4">
+            <div class="card h-100" data-aos="fade-up" data-aos-delay="0">
+                <h4 class="card-header text-center">Kitchens</h4>
+                <div class="card-body">
+                    <p class="card-text">We can design and expertly fit your dream kitchen and flooring to your exact requirement and taste. We pride ourselves in our expert service and can provide a variety of styles for all budgets. Take a look at some of the <a href="@Url.Action("Kitchens","Projects")">kitchens in our portfolio</a> for some inspiration or contact us with an enquiry for a free quote.</p>
+                </div>
+                <div class="card-footer">
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+            <div class="card h-100" data-aos="fade-up" data-aos-delay="200">
+                <h4 class="card-header text-center">Bathrooms</h4>
+                <div class="card-body">
+                    <p class="card-text">Whether your bathroom needs revamping, a simple suite installation or a complete reconstruction we can cater to your needs. We cover all jobs needed to bring your dream bathroom to life. Why not have a look at some of the <a href="@Url.Action("Bathroom","Projects")">bathrooms and wet walls in our portfolio</a>.</p>
+                </div>
+                <div class="card-footer">
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+            <div class="card h-100" data-aos="fade-up" data-aos-delay="400">
+                <h4 class="card-header text-center">Full Property Refurbishment </h4>
+                <div class="card-body">
+                    <p class="card-text">Whether you are a letting agent or a homeowner we can also provide complete renovation services that can transform a property to fufill its full potential. We recently completed a series of <a href="@Url.Action("Details","Projects",  new { Id = 59})">West End flat renovations</a> in Dundee that stand as a testament of we can do for your property. We are happy to take on renovation projects of all sizes, get in touch today.</p>
+                </div>
+                <div class="card-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4 mb-4">
+            <div class="card h-100" data-aos="fade-up" data-aos-delay="0">
+                <h4 class="card-header text-center">Commercial</h4>
+                <div class="card-body">
+                    <p class="card-text">We provide a range of commercial joinery services including: <br /> &#8226 Shopfitting <br /> &#8226 Reactive Maintenance <br /> &#8226 Bathrooms &amp; wet walls <br /> &#8226 Offices fitting and refurbishment <br /> &#8226 Commercial flooring <br /> &#8226 Hotels, restaraunts and bars <br /> &#8226 Commercial extensions & new builds </p>
+                </div>
+                <div class="card-footer">
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+            <div class="card h-100" data-aos="fade-up" data-aos-delay="200">
+                <h4 class="card-header text-center">Maintenance Jobs</h4>
+                <div class="card-body">
+                    <p class="card-text">From small maintenance jobs, to general repairs we can offer domestic and commercial handyman services at a low price. RPM also offer professional decking and fencing services in a range of finishes to suit your garden. These products can transform your garden and are available at great prices. </p>
+                </div>
+                <div class="card-footer">
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="400">
+            <div class="card h-100">
+                <h4 class="card-header text-center">Windows & Doors</h4>
+                <div class="card-body">
+                    <p class="card-text">At RPM we can supply and install replacement windows and doors, in homes, offices and all other typical scenarios. All our windows and doors are expertly fitted down to the finest detail. Feel free to browse some of the <a href="@Url.Action("WindowsDoors","Projects")">windows and doors in our portfolio</a> that we have completed for our happy customers.</p>
+                </div>
+                <div class="card-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+
+
+</div>
+<!-- /.container -->
+@section Scripts {
+    <script type="text/javascript">
+        $('#services-link').addClass('active');
+    </script>
+
+    <script>
+        AOS.init();
+    </script>
+}
