@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - rpm_joinery</title>
+    <title>@ViewData["Title"] | RPM Joinery & Maintenance </title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -16,14 +17,16 @@
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
+  
 </head>
 <body>
     <header>
         <!-- Navigation -->
-        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top navcurve">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark-transparent fixed-top">
             <div class="container">
                 <!-- <a class="navbar-brand" href="index.html">Start Bootstrap</a> -->
-                <a href="@Url.Action("Index","Home")"> <img src="../../img/rpmlogo.png" width="150px" alt="RPM Joinery Logo"> </a>
+                <a href="@Url.Action("Index","Home")"> <img src="../../img/rpm-logo-trans.png" width="200px" alt="RPM Joinery Logo"> </a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -76,13 +79,29 @@
     <main role="main" class="pb-3">
         @RenderBody()
     </main>
+    @*<div class="credit-container" id="credit-container">
+            <a href="@Url.Action("About","Home")"> <img src="../../img/DttLogo.png" height="64" alt="Dundee Trusted Trader Scheme Logo" align="middle"> </a>
+            <a href="@Url.Action("About","Home")"> <img src="../../img/ArtsLogo.png" height="64" alt="Angus Reputable Trader Logo" align="middle"> </a>
+            <a href="https://www.facebook.com/rpmjoinerydundee/"> <img src="../../img/facebook.png" height="64" alt="Like us on Facebook Logo" align="middle"> </a>
+        </div>*@
 
-    <div class="credit-container" id="credit-container">
-        <a href="@Url.Action("About","Home")"> <img src="../../img/DttLogo.png" height="64" alt="Dundee Trusted Trader Scheme Logo" align="middle"> </a>
-        <a href="@Url.Action("About","Home")"> <img src="../../img/ArtsLogo.png" height="64" alt="Angus Reputable Trader Logo" align="middle"> </a>
-        <a href="https://www.facebook.com/rpmjoinerydundee/"> <img src="../../img/facebook.png" height="64" alt="Like us on Facebook Logo" align="middle"> </a>
+    @*<img src="~/img/waves2.png" class="waves-img" style="position: relative;
+       z-index:100;" />*@
+    <div class="get-in-touch-container">
+        <br />
+        <div class="container" style="text-align: center;">
+            <div class="col-md-5 col-sm-6">
+                <h4 class="wide-spacing"> GET IN TOUCH TODAY </h4>
+                <p>
+                    <span>
+                        For more information on any of our products and services across Scotland please call us on 01382 225 934 and ask for a FREE no-obligation quote.
+                    </span>
+                </p>
+                <button type="button" class="btn btn-xlarge btn-outline-light" data-aos="fade-up" data-aos-delay="200">GET A QUOTE</button>
+            </div>
+
+        </div>
     </div>
-
     <div class="pre-footer">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
         <div class="container">
@@ -101,15 +120,15 @@
                 <div class="col-md-4">
                     <h5><b>Useful Links</b></h5>
                     <h6><a href="@Url.Action("About","Home")">About</a> <a href="@Url.Action("Contact","Home")">Contact</a></h6>
-                    <h6><a href="@Url.Action("Services","Home")">Services</a> <a href="@Url.Action("Index","Projects")">Projects</a></h6>
+                    <h6><a href="@Url.Action("Services","Home")">Services</a> <a href="@Url.Action("Index","Projects")">Previous Work</a></h6>
                     <h6><a href="@Url.Action("Kitchens","Projects")">Kitchens</a> <a href="@Url.Action("Bathroom","Projects")">Bathrooms</a></h6>
-                    <h6><a href="@Url.Action("DeckingFencing","Projects")">Decking</a> <a href="@Url.Action("WindowsDoors","Projects")">Windows</a></h6>
+                    <h6><a href="@Url.Action("Commercial","Projects")">Commercial</a> <a href="@Url.Action("WindowsDoors","Projects")">Windows</a></h6>
                     <a href="@Url.Action("Maintenance","Projects")">Maintenance</a>
                 </div>
                 <div class="col-md-4">
                     <br />
                     <h6><a href="#">XML Site Map</a></h6>
-                    <h6><a href="@Url.Action("Cookie","Home")">Cookie Policy</a></h6>
+                    <h6><a href="@Url.Action("Cookies","Home")">Cookie Policy</a></h6>
                     <h6><a href="@Url.Action("Login","Account")">RPM Login</a></h6>
                 </div>
             </div>
@@ -117,33 +136,46 @@
     </div>
 
 
-<!-- Footer -->
-<footer class="py-5 bg-dark">
-    <p class="m-0 text-center text-white">Copyright &copy; RPM Joinery & Maintainance 2019</p>
-    <p class="m-0 text-center text-white">Website Design by Gary Gillespie</p>
-    <!-- /.container -->
-</footer>
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+        <p class="m-0 text-center text-white">Copyright &copy; RPM Joinery & Maintainance 2019</p>
+        <p class="m-0 text-center text-white">Website Design by Gary Gillespie</p>
+        <!-- /.container -->
+    </footer>
 
-<environment include="Development">
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-</environment>
-<environment exclude="Development">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
-            asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-            asp-fallback-test="window.jQuery"
-            crossorigin="anonymous"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
+        </script>
+    </environment>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
+    <script>
+        $(function () {
+            $(document).scroll(function () {
+                var $nav = $(".navbar");
+                $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
+            });
+        });
     </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
-            asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
-            asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-            crossorigin="anonymous"
-            integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
+    <script>
+        AOS.init();
     </script>
-</environment>
-<script src="~/js/site.js" asp-append-version="true"></script>
 
-@RenderSection("Scripts", required: false)
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
