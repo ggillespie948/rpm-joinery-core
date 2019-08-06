@@ -1,0 +1,118 @@
+﻿
+
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner" role="listbox">
+            <div class="overlay">
+                <img src="~/img//carousel-overlay-1.png" class="image-responsive" data-aos="fade-right" data-aos-duration="3000" />
+            </div>
+            <div class="overlay-right">
+                <img src="~/img//carousel-overlay-2.png" class="image-responsive" data-aos="fade-left" data-aos-duration="3000" />
+            </div>
+            <div class="overlay-right">
+                <img src="~/img//carousel-overlay-3.png" class="image-responsive" data-aos="fade-left" data-aos-duration="3000" />
+            </div>
+            <div class="overlay">
+                <img src="~/img//carousel-overlay-4.png" class="image-responsive" data-aos="fade-right" data-aos-duration="2500" />
+            </div>
+            <!-- Slide One - Set the background image for this slide in the line below -->
+            <div class="carousel-item active" data-parallax="scroll" data-image-src="../img/contact-header.jpg" style="background-image: url(../img/contact-header.jpg)">
+                <div class="carousel-caption">
+                    <h1 class="carousel-title"><span class="reveal">Contact Us</span></h1>
+                    <h4><span class="reveal">Message, phone, email or visit. Get in touch for a free no obligation quote.</span></h4>
+                    <br />
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">
+        Contact
+    </h1>
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="@Url.Action("Index", "Home")">Home</a>
+        </li>
+        <li class="breadcrumb-item active">Contact</li>
+    </ol>
+
+    <!-- Content Row -->
+    <div class="row">
+        <!-- Map Column -->
+        <div class="col-lg-8 mb-4">
+            <!-- Embedded Google Map -->
+            <iframe width="100%" height="400px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAEkdNelTh1JGugBu5MGmArQKKaDEzQoTo&q=4+Valentine+Court+Dunsinane+Industrial+Estate+Dundee"></iframe>
+        </div>
+        <!-- Contact Details Column -->
+        <div class="col-lg-4 mb-4">
+            <h3>Contact Details</h3>
+            <p>
+                4 Valentine Court
+                <br /> Dunsinane Industrial Estate, Dundee
+                <br />DD2 3QB
+                <br />
+            </p>
+            <p>
+                <abbr title="Phone">P</abbr>: 07970 058622
+            </p>
+            <p>
+                <abbr title="Email">E</abbr>:
+                <a href="mailto:rpmdundee@gmail.com">
+                    rpmdundee@gmail.com
+                </a>
+            </p>
+        </div>
+    </div>
+    <!-- /.row -->
+    <!-- Contact Form -->
+    <!-- In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
+    <div class="row">
+        <div class="col-lg-8 mb-4">
+            <h3>Send us a Message</h3>
+            @using (Html.BeginForm("SendMail", "Home"))
+            {
+
+                <div class="control-group form-group">
+                    <div class="controls">
+                        <label>Full Name:</label>
+                        <input type="text" class="form-control" name="name" required data-validation-required-message="Please enter your name.">
+                        <p class="help-block"></p>
+                    </div>
+                </div>
+                <div class="control-group form-group">
+                    <div class="controls">
+                        <label>Phone Number:</label>
+                        <input type="tel" class="form-control" name="phone" required data-validation-required-message="Please enter your phone number.">
+                    </div>
+                </div>
+                <div class="control-group form-group">
+                    <div class="controls">
+                        <label>Email Address:</label>
+                        <input type="email" class="form-control" name="email" required data-validation-required-message="Please enter your email address.">
+                    </div>
+                </div>
+                <div class="control-group form-group">
+                    <div class="controls">
+                        <label>Message:</label>
+                        <textarea rows="10" cols="100" class="form-control" name="message" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none"></textarea>
+                    </div>
+                </div>
+                <div id="success"></div>
+                <!-- For success/fail messages -->
+                <button type="submit" class="btn btn-primary" formaction='@Url.Action("SendMail", "Home")'>Send Message</button>
+            }
+        </div>
+
+    </div>
+    <!-- /.row -->
+
+</div>
+<!-- /.container -->
+@section Scripts {
+    <script type="text/javascript">
+        $('#contact-link').addClass('active');
+    </script>
+}
