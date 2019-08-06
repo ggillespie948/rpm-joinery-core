@@ -36,31 +36,49 @@ namespace rpm_joinery.Controllers
             return View(recentProjects);
         }
 
+        [Route("privacy")]
         public IActionResult Privacy()
         {
             return View();
         }
 
+        [Route("about")]
         public IActionResult About()
         {
+            //Set SEO keywords, description, and other meta data in view bag so can be changed dynamically in layout
+            ViewBag.Title = "About | RPM Joinery and Maintenance";
+            ViewBag.MetaDescription = "RPM Joinery and Maintenance is a family run business that take great pride in providing the best possible service to meet all of our consumer's needs.";
+            ViewBag.MetaKeywords = "RPM joinery maintenance, reliable joiner, trusted joiner dundee, quality cheap joiner dundee angus, about rpm dundee, trusted trader dundee joiner, trusted joiner angus, family run joiner dundee";
             return View();
         }
 
+        [Route("contact")]
         public IActionResult Contact()
         {
+            ViewBag.Title = "Contact Us | RPM Joinery and Maintenance";
+            ViewBag.MetaDescription = "Contact RPM Joinery and Maintenance directly. We are happy to discuss the details of any potential work you may need conducted.";
+            ViewBag.MetaKeywords = "RPM Joinery, RPM joienry contact, contact a joiner in dundee, emergency joiner dundee, contact joiner angus";
             return View();
         }
 
+        [Route("services")]
         public IActionResult Services()
         {
+            ViewBag.Title = "Services | RPM Joinery and Maintenance";
+            ViewBag.MetaDescription = "RPM Joinery and Maintenance offer a wide range of services ranging from domestic to commercial.We offer services in fitting kitchens, bathrooms and more.";
+            ViewBag.MetaKeywords = "RPM services, kitchen dundee, bathrooms dundee, maintenance dundee, decking, joinery services, joinery carpenter dundee angus perth";
             return View();
         }
 
+        [Route("Cookies")]
         public IActionResult Cookies()
         {
+            ViewBag.Title = "Cookie Policy | RPM Joinery and Maintenance";
+            ViewBag.MetaDescription = "RPM Joinery and Maintenance Cookie policy";
+            ViewBag.MetaKeywords = "Cookie policy rpm";
             return View();
         }
-        
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
