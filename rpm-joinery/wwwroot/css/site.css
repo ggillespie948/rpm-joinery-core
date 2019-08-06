@@ -1,6 +1,15 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+.scrolled {
+    background-color: black !important;
+    transition: background-color 300ms linear;
+}
+
+.scrolled .nav-link {
+    color: #555;
+}
+
 a.navbar-brand {
   white-space: normal;
   text-align: center;
@@ -27,15 +36,8 @@ button.accept-policy {
     background-color:black !important;
 }
 
-
-body {
-    padding-top: 54px;
-}
-
-@media (min-width: 992px) {
-    body {
-        padding-top: 56px;
-    }
+.bg-dark-transparent{
+    background-color:rgba(0, 0, 0, 0.0)
 }
 
 .carousel-item {
@@ -151,4 +153,242 @@ body {
   line-height: 60px; /* Vertically center the text there */
 }
 
+.waves-img {
+    max-width: 100%;
+    max-height: 100vh;
+    height: auto;
+}
+
+.get-in-touch-container{
+    color:white;
+    background-color:#141519;
+    padding-top: 0vw;
+    padding-bottom: 5vw;
+}
+
+.wide-spacing {
+    letter-spacing: .065em;
+}
+
+.btn-xlarge {
+    padding: 18px 28px;
+    font-size: 22px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 0px;
+    margin: 0 auto;
+}
+
+.carousel-caption{
+    bottom: 30% !important;
+}
+
+.carousel-footer-caption {
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 2%;
+}
+
+.img-gray {
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+}
+
+.non-gray {
+    -webkit-filter: grayscale(0%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(0%);
+}
+
+.vl {
+    border-left: 2px solid #e5e5e5;
+    height: 250px;
+    margin-top: 100px;
+}
+
+.trader-scheme-box{
+    padding: 20px;
+    text-align:center;
+}
+
+@media screen and (max-width: 992px) {
+    .vl {
+        display: none !important;
+    }
+}
+
+.card-title {
+    text-align: center;
+    letter-spacing: .025em;
+}
+
+.card-text{
+    text-align:center;
+}
+
+.parallax-window {
+    min-height: 400px;
+    background: transparent;
+}
+
+/* Cards */
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.cards_item {
+    display: flex;
+    padding: 1rem;
+}
+
+@media (min-width: 40rem) {
+    .cards_item {
+        width: 50%;
+    }
+}
+
+@media (min-width: 56rem) {
+    .cards_item {
+        width: 33.3333%;
+    }
+}
+
+.card {
+    background-color: white;
+    border-radius: 0.25rem;
+    box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.card_content {
+    padding: 1rem;
+    background: #000000; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #0b0a0a, #000000); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #0b0a0a, #000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.card_title {
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    margin: 0px;
+    text-align: center;
+}
+
+.card_text {
+    color: #ffffff;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+    font-weight: 400;
+    text-align:center;
+}
+
+.card_btn {
+    color: white;
+    background-color: dimgray;
+    border-radius: 0px;
+    text-align: center;
+    display: inline-block;
+    color: #ffffff;
+    padding: 0.8rem;
+    font-size: 14px;
+    text-transform: uppercase;
+    border-radius: 4px;
+    font-weight: 400;
+    display: block;
+    width: 100%;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: transparent;
+}
+
+.card_btn:hover {
+    background-color:white;
+    color:black;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 20vw;
+    object-fit: cover;
+}
+
+/* The hero image */
+.hero-image-about {
+    /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/tint1.jpg);
+    /* Set a specific height */
+    height: 50%;
+    /* Position and center the image to scale nicely on all screens */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+/* Place text in the middle of the image */
+.hero-text {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+}
+.btn-carousel{
+    border-radius: 0px !important;
+    background-color: black !important;
+    color:white !important;
+}
+
+.carousel-title{
+    font-size:72px;
+}
+
+.reveal {
+    background-color: rgba(0, 0, 0, 0.02) !important;
+    -webkit-animation: 1.5s linear forwards reveal;
+    -moz-animation: 1.5s linear forwards reveal;
+    -o-animation: 1.5s linear forwards reveal;
+    animation: 1.5s linear forwards reveal;
+    background-color:rgba(0, 0, 0, 0.50);
+}
+ @-webkit-keyframes reveal { from { filter:blur(8px); } to { filter:blur(0px); }  }
+ @-moz-keyframes reveal { from { filter:blur(8px); } to { filter:blur(0px); }  }
+ @-o-keyframes reveal { from { filter:blur(8px); } to { filter:blur(0px); }  }
+ @keyframes reveal { from { filter:blur(8px); } to { filter:blur(0px); }  }
+
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.overlay-right {
+    position: absolute;
+    top: 0;
+    z-index: 10;
+    float: right;
+    clear: right;
+    width: 100%;
+    left: 45%;
+    pointer-events: none;
+}
+
+.nav-item{
+    background-color:rgba(0, 0, 0, 0.75) !important;
+}
 
