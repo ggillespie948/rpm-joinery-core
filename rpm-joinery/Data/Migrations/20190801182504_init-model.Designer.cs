@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using rpm_joinery.Data;
 
 namespace rpm_joinery.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190801182504_init-model")]
+    partial class initmodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -196,11 +198,15 @@ namespace rpm_joinery.Data.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<int>("ProjectTypeId");
+
                     b.Property<string>("ServicesProvided");
 
                     b.Property<string>("Title");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProjectTypeId");
 
                     b.ToTable("Projects");
                 });
@@ -237,25 +243,6 @@ namespace rpm_joinery.Data.Migrations
                     b.ToTable("ProjectImages");
                 });
 
-            modelBuilder.Entity("rpm_joinery.Models.Projects.ProjectTag", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ProjectId");
-
-                    b.Property<int>("TagId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProjectId");
-
-                    b.HasIndex("TagId");
-
-                    b.ToTable("ProjectTag");
-                });
-
             modelBuilder.Entity("rpm_joinery.Models.Projects.Tag", b =>
                 {
                     b.Property<int>("Id")
@@ -264,7 +251,11 @@ namespace rpm_joinery.Data.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<int?>("ProjectId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ProjectId");
 
                     b.ToTable("Tags");
                 });
@@ -314,6 +305,14 @@ namespace rpm_joinery.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("rpm_joinery.Models.Project", b =>
+                {
+                    b.HasOne("rpm_joinery.Models.ProjectType", "ProjectType")
+                        .WithMany()
+                        .HasForeignKey("ProjectTypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("rpm_joinery.Models.Projects.ProjectImage", b =>
                 {
                     b.HasOne("rpm_joinery.Models.Project", "Project")
@@ -322,17 +321,11 @@ namespace rpm_joinery.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("rpm_joinery.Models.Projects.ProjectTag", b =>
+            modelBuilder.Entity("rpm_joinery.Models.Projects.Tag", b =>
                 {
-                    b.HasOne("rpm_joinery.Models.Project", "Project")
+                    b.HasOne("rpm_joinery.Models.Project")
                         .WithMany("Tags")
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("rpm_joinery.Models.Projects.Tag", "Tag")
-                        .WithMany()
-                        .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ProjectId");
                 });
 #pragma warning restore 612, 618
         }
