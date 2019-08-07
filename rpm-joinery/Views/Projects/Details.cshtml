@@ -1,48 +1,111 @@
-﻿@model rpm_joinery.Models.Project
+﻿@model rpm_joinery.ViewModels.ProjectDetailsViewModel
 
 @{
     ViewData["Title"] = "Details";
 }
+<br />
+<br />
+<br />
+<br />
+<br />
 
-<h1>Details</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-9 col-lg-9">
+            <div class="text-center">
+                <h6>PROJECTS, DOMESTIC</h6>
+                <h1> @Model.Project.Title </h1>
+                <h5 style="text-align:center; font-weight:bolder; color:#777">POSTED ON @Model.Project.CreatedOn.ToShortDateString(), BY ROSS MURRAY</h5>
+            </div>
+            <img class="img-fluid rounded" src="@Model.Project.Images[0].ImageFilePath" alt="" style="text-align:center;">
+            <br />
+            <br />
+            <h4>Services Provided:</h4>
+            <ul>
+                <li> Four rooms rennovated </li>
+                <li> Surgery Rennovated and Expanded </li>
+                <li> Four floors rennovated </li>
+            </ul>
+            <br />
+            <h4> Description </h4>
+            <h6> @Model.Project.Description </h6>
+            <br />
+            <div class="row">
+                @for(int i=1; i<Model.Project.Images.Count; i++)
+                {
+                    <div class="col-md-4">
+                        <a href="@Model.Project.Images[i].ImageFilePath" data-lightbox="image-related" data-title="My caption">
+                            <img class="img-fluid rounded" src="@Model.Project.Images[i].ImageFilePath" alt="" style="text-align:center;">
+                        </a>
+                    </div>
+                }
+            </div>
 
-<div>
-    <h4>Project</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedOn)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedOn)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedByUserId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedByUserId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ServicesProvided)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ServicesProvided)
-        </dd>
-    </dl>
+            <br />
+            <hr />
+            <div class="row">
+                <br />
+                <div class="text-center centerDiv">
+                    <a class="btn btn-primary" href="#" > Share </a>
+                    <a class="btn btn-primary" href="#" > Share </a>
+                    <a class="btn btn-primary" href="#" > Share </a>
+                    <a class="btn btn-primary" href="#" > Share </a>
+                </div>
+            </div>
+            <hr />
+
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-left">
+                    <a href="#"> <i class="fa fa-arrow-left" aria-hidden="true"></i> Previous Project </a>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right">
+                    <a href="#"> Next Project <i class="fa fa-arrow-right" aria-hidden="true"></i> </a>
+                </div>
+            </div>
+            <hr />
+            <br />
+            <br />
+
+        </div>
+        <div class="col-sm-12 col-md-3 col-lg-3">
+            <div class="vl">
+                <h4 style="color:#777">About RPM Joinery & Maintenance</h4>
+                <h6>Our family run business offers a wide range of joinery services from the refurbishment of existing buildings, to the design and build of new homes, complete fitting and custom designed architectural touches. Change this *</h6>
+                <br />
+                <h4 style="color:#777">Browse Tags</h4>
+                @foreach (var tag in Model.BrowseTags)
+                {
+                    <a asp-controller="Projects" asp-action="Tag" asp-route-tag="@tag.Name"><span class="mtags" style="font-size:@{@tag.FontSize}px;">@tag.Name</span></a>
+                }
+            </div>
+            <div class="hidden-footer">
+                <h4 style="color:#777">About RPM Joinery & Maintenance</h4>
+                <h6>Our family run business offers a wide range of joinery services from the refurbishment of existing buildings, to the design and build of new homes, complete fitting and custom designed architectural touches. Change this *</h6>
+                <br />
+                <h4 style="color:#777">Browse Tags</h4>
+                @foreach (var tag in Model.BrowseTags)
+                {
+                    <a asp-controller="Projects" asp-action="Tag" asp-route-tag="@tag.Name"><span class="mtags" style="font-size:@{@tag.FontSize}px;">@tag.Name</span></a>
+                }
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--Check if authenticated -->
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.ProjectId">Edit Project </a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(".navbar").removeClass('bg-dark-transparent');
+        $(".navbar").addClass('bg-dark');
+        $(".navbar").addClass('scrolled');
+        $('#project-link').addClass('active');
+    </script>
+}
+
