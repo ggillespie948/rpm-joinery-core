@@ -1,51 +1,139 @@
-﻿@model rpm_joinery.Models.Project
+﻿@model rpm_joinery.ViewModels.EditProjectViewModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Create Project";
 }
 
-<h1>Edit</h1>
+<br />
+<br />
+<br />
+<br />
 
-<h4>Project</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="CreatedOn" class="control-label"></label>
-                <input asp-for="CreatedOn" class="form-control" />
-                <span asp-validation-for="CreatedOn" class="text-danger"></span>
+
+
+<div class="container">
+    <h1>Create New Project</h1>
+    <br />
+    <div class="row">
+        <div class="col-md-8">
+            <form enctype="multipart/form-data" asp-action="Create" id="createForm">
+                <h4>Project Details</h4>
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <textarea class="form-control" asp-for="Description" rows="3"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ServicesProvided" class="control-label"></label>
+                    <textarea class="form-control" placeholder="• Every new line will be a bullet point" asp-for="ServicesProvided" rows="3"></textarea>
+                    <span asp-validation-for="ServicesProvided" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Tags" class="control-label"></label>
+                    <label>The more tags you add the better!</label>
+                    <select asp-for="Tags" class="form-control js-tags" multiple="multiple">
+                        @foreach (var tag in Model.TagSelectListItems)
+                        {
+                            <option>
+                                @tag.Name
+                            </option>
+                        }
+                    </select>
+                    <span asp-validation-for="Tags" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Images" class="control-label"> </label>
+                    <div class="custom-file">
+                        <input multiple id="gallery-photo-add" asp-for="Images" class="form-control custom-file-input" />
+                        <label class="custom-file-label"> Choose Multiple Files.. </label>
+                    </div>
+                    <span asp-validation-for="Images" class="text-danger"></span>
+                </div>
+
+            </form>
+        </div>
+        <div class="col-md-4">
+            <div class="d-none d-md-block">
+                <br />
+                <br />
             </div>
             <div class="form-group">
-                <label asp-for="CreatedByUserId" class="control-label"></label>
-                <input asp-for="CreatedByUserId" class="form-control" />
-                <span asp-validation-for="CreatedByUserId" class="text-danger"></span>
+                <a href="javascript:{}" onclick="document.getElementById('createForm').submit();" class="btn btn-block btn-lg btn-success">Create New Project</a>
             </div>
+
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+                <a asp-action="Index" class="btn btn-block btn-lg btn-danger">Cancel</a>
             </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ServicesProvided" class="control-label"></label>
-                <input asp-for="ServicesProvided" class="form-control" />
-                <span asp-validation-for="ServicesProvided" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
+    </div>
+    <div class="gallery row" id="gallery" style="text-align:center;"></div>
+    <div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
+@section Scripts {
+    <script>
+        $(".js-tags").select2({
+            tags: true,
+            placeholder: 'Select or type tags'
+        });
+    </script>
+
+    <!-- File Uploader Image Preview -->
+    <script>
+        $(function () {
+            var imagesPreview = function (input, placeToInsertImagePreview) {
+
+                if (input.files) {
+                    var filesAmount = input.files.length;
+
+                    $('#gallery').empty();
+
+                    for (i = 0; i < filesAmount; i++) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (event) {
+                            $("<div><img></img></div>")
+                                .addClass("column") // div
+                                .find("img")
+                                .attr('src', event.target.result)
+                                .attr('class', "img-thumbnail")
+                                .attr('style', "max-width:300px;max-height:300px;")
+                                .end()
+                                .appendTo(placeToInsertImagePreview);
+                        }
+
+                        reader.readAsDataURL(input.files[i]);
+                    }
+                }
+
+            };
+
+            $('#gallery-photo-add').on('change', function () {
+                console.log($(this));
+                imagesPreview(this, 'div.gallery');
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        function submitform() { document.myform.submit(); }
+    </script>
+
+    <script type="text/javascript">
+        $(".navbar").removeClass('bg-dark-transparent');
+        $(".navbar").addClass('bg-dark');
+        $(".navbar").addClass('scrolled');
+    </script>
+
+}
+
 

@@ -6,6 +6,8 @@
 
 <br />
 <br />
+<br />
+<br />
 
 
 
@@ -14,7 +16,7 @@
     <br />
     <div class="row">
         <div class="col-md-8">
-            <form enctype="multipart/form-data" asp-action="CreateNewProject" id="createForm">
+            <form enctype="multipart/form-data" asp-action="Create" id="createForm">
                 <h4>Project Details</h4>
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -35,6 +37,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="Tags" class="control-label"></label>
+                    <label>The more tags you add the better!</label>
                     <select asp-for="Tags" class="form-control js-tags" multiple="multiple">
                         @foreach (var tag in Model.TagSelectListItems)
                         {
@@ -51,6 +54,7 @@
                         <input multiple id="gallery-photo-add" asp-for="Images" class="form-control custom-file-input" />
                         <label class="custom-file-label"> Choose Multiple Files.. </label>
                     </div>
+                    <span asp-validation-for="Images" class="text-danger"></span>
                 </div>
 
             </form>
@@ -124,6 +128,11 @@
         function submitform() { document.myform.submit(); }
     </script>
 
+    <script type="text/javascript">
+        $(".navbar").removeClass('bg-dark-transparent');
+        $(".navbar").addClass('bg-dark');
+        $(".navbar").addClass('scrolled');
+    </script>
 
 }
 

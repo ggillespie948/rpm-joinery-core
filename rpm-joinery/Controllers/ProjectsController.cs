@@ -42,11 +42,44 @@ namespace rpm_joinery.Controllers
         }
 
         [HttpGet]
+        public IActionResult Tag([FromQuery] string tag)
+        {
+            var projects = _context.Projects
+                .Include(i => i.Images)
+                .Include(i => i.Tags)
+                .Where(i=>i.Tags.Any(j=>j.Tag.Name == tag))
+                .ToList();
+            if (projects == null) return NotFound();
+
+            ViewBag.Tag = tag;
+            return View(projects);
+        }
+
+        [HttpGet]
         public IActionResult Details(int id)
         {
-            var project = _context.Projects.Where(i => i.Id == id).FirstOrDefault();
+            var project = _context.Projects.Where(i => i.Id == id)
+                .Include(i => i.Images)
+                .Include(i => i.Tags)
+                .FirstOrDefault();
+
             if (project == null) return NotFound();
-            return View(project);
+
+            var tags = _context.Tags.ToList();
+            Random rnd = new Random();
+            foreach (var tag in tags)
+            {
+                tag.FontSize = rnd.Next(12, 30);
+            }
+
+            var viewModel = new ProjectDetailsViewModel
+            {
+                ProjectId = project.Id,
+                Project = project,
+                BrowseTags = tags,
+            }; // todo: add previous and next
+
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -54,14 +87,13 @@ namespace rpm_joinery.Controllers
         public IActionResult Create()
         {
             var viewModel = new CreateProjectViewModel();
-            viewModel.TagSelectListItems = new List<Tag>();
-            viewModel.TagSelectListItems.Add(new Tag { Name = "Dundee" });
+            viewModel.TagSelectListItems = _context.Tags.ToList();
             return View(viewModel);
         }
 
         [HttpPost]
         [Authorize]
-        public JsonResult CreateNewProject(CreateProjectViewModel model)
+        public IActionResult Create(CreateProjectViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -72,6 +104,7 @@ namespace rpm_joinery.Controllers
                 newProject.ServicesProvided = model.ServicesProvided;
                 newProject.Tags = new List<ProjectTag>();
                 newProject.Images = new List<ProjectImage>();
+                newProject.CreatedOn = DateTime.Today;
 
                 _context.Projects.Add(newProject);
                 _context.SaveChanges();
@@ -124,17 +157,137 @@ namespace rpm_joinery.Controllers
                 }
 
                 _context.SaveChanges();
-                return Json(new { created = true, message = "Project Added Succesfully" });
+                return View("Index");
+            }
+            model.TagSelectListItems = _context.Tags.ToList();
+            return View(model);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult Edit(int id)
+        {
+            var project = _context.Projects.Where(i => i.Id == id).FirstOrDefault();
+            if (project == null) return NotFound();
+
+            var viewModel = new EditProjectViewModel();
+            viewModel.ProjectId = id;
+            viewModel.Project = project;
+            viewModel.TagSelectListItems = _context.Tags.ToList();
+            viewModel.Title = project.Title;
+            viewModel.Description = project.Description;
+            viewModel.ServicesProvided = project.ServicesProvided;
+            viewModel.Tags = new List<string>();
+            foreach(var tag in project.Tags)
+            {
+                viewModel.Tags.Add(tag.Tag.Name);
             }
 
-            return Json(new { created = false, message = "Please ensure you have filled out every form value" });
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult Edit(EditProjectViewModel viewModel)
+        {
+            var project = _context.Projects.Where(i => i.Id == viewModel.ProjectId).FirstOrDefault();
+            if (project == null) return NotFound();
+
+            if (ModelState.IsValid)
+            {
+                project.Title = viewModel.Title;
+                project.Description = viewModel.Description;
+                project.ServicesProvided = viewModel.ServicesProvided;
+                project.Tags = new List<ProjectTag>();
+                project.Images = new List<ProjectImage>();
+                project.CreatedOn = DateTime.Today;
+
+
+                // Deal with Assigned Tags
+                if (viewModel.Tags != null && viewModel.Tags.Count > 0)
+                {
+                    var existingTags = _context.Tags.ToList();
+                    foreach (string tag in viewModel.Tags)
+                    {
+                        if (!existingTags.Where(i => i.Name.Contains(tag)).Any())
+                        {
+                            var newTag = new Tag { Name = tag };
+                            _context.Tags.Add(newTag);
+                            existingTags.Add(newTag);
+                        }
+
+                        var projectTag = new ProjectTag();
+                        projectTag.TagId = existingTags.Where(i => i.Name.Contains(tag)).FirstOrDefault().Id;
+                        projectTag.Tag = existingTags.Where(i => i.Name.Contains(tag)).FirstOrDefault();
+                        projectTag.ProjectId = project.Id;
+                        projectTag.Project = project;
+                        project.Tags.Add(projectTag);
+                    }
+                }
+                else
+                {
+                    //todo return error select 0 or more tags
+                }
+
+                // Deal with image upload
+                if (viewModel.Images != null && viewModel.Images.Count > 0)
+                {
+                    foreach (IFormFile image in viewModel.Images)
+                    {
+                        if(!project.Images.Where(i=>i.ImageFilePath.Contains(image.FileName)).Any())
+                        {
+                            string uploadsFolder = Path.Combine(_honestingEnvironment.WebRootPath, "images");
+                            string uniqueFileName = Guid.NewGuid().ToString() + "_" + image.FileName;
+                            string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                            image.CopyTo(new FileStream(filePath, FileMode.Create));
+
+                            var projectImage = new ProjectImage();
+                            projectImage.ProjectId = project.Id;
+                            projectImage.ImageFilePath = "/images/" + uniqueFileName;
+                            project.Images.Add(projectImage);
+                        }
+                    }
+                }
+                else
+                {
+                    //todo return error select at least 1 picture
+                }
+
+                _context.SaveChanges();
+                return View("Index");
+            }
+            viewModel.TagSelectListItems = _context.Tags.ToList();
+            return View(viewModel);
         }
 
         [HttpDelete]
         [Authorize]
-        public IActionResult DeleteProject()
+        public IActionResult DeleteProjectImage(int id)
         {
-            throw new NotImplementedException();
+            var projectImage = _context.ProjectImages.Where(i => i.Id == id).FirstOrDefault();
+            if (projectImage == null) return NotFound();
+
+            string fileLocation = Path.Combine(_honestingEnvironment.WebRootPath, projectImage.ImageFilePath);
+            System.IO.File.Delete(fileLocation);
+
+            _context.ProjectImages.Remove(projectImage);
+            _context.SaveChanges();
+
+            return Json(new { deleted = true });
+        }
+
+        [HttpDelete]
+        [Authorize]
+        public IActionResult DeleteProject(int id)
+        {
+            var project = _context.Projects.Where(i => i.Id == id).FirstOrDefault();
+            if (project == null) return NotFound();
+
+            _context.Projects.Remove(project);
+            _context.SaveChanges();
+
+            ViewBag.Notification = "Project Deleted.";
+            return View("Index");
         }
     }
 }
