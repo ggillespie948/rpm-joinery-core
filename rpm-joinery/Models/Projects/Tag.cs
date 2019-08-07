@@ -12,5 +12,8 @@ namespace rpm_joinery.Models.Projects
         public int Id { get; set; }
 
         public string Name { get; set; }
+
+        public int FontSize { get; set; }
+
     }
 }
