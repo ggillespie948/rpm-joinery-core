@@ -18,7 +18,8 @@
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
-  
+    <link href="~/css/lightbox.css" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 </head>
 <body>
     <header>
@@ -58,15 +59,16 @@
                             </div>
                         </li>
 
-                        @*@if (Request.IsAuthenticated)
-                            {
-                                <li>
-                                    <form method="post" action="@Url.Action("LogOff", "Account")" id="signoutfrm" style="display:none;">
-                                        @Html.AntiForgeryToken()
-                                    </form>
-                                    <a href="" class="btn btn-danger" onclick="$('#signoutfrm').submit(); return false;">Log Out</a>
-                                </li>
-                            }*@
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <li>
+                                <form method="post" action="@Url.Action("LogOff", "Account")" id="signoutfrm" style="display:none;">
+                                    @Html.AntiForgeryToken()
+                                </form>
+                                <a href="" class="btn btn-danger" onclick="$('#signoutfrm').submit(); return false;">Log Out</a>
+                            </li>
+                        }
+                      
                     </ul>
                 </div>
             </div>
@@ -86,7 +88,7 @@
         </div>*@
 
     @*<img src="~/img/waves2.png" class="waves-img" style="position: relative;
-       z-index:100;" />*@
+        z-index:100;" />*@
     <div class="get-in-touch-container">
         <br />
         <div class="container" style="text-align: center;">
@@ -97,7 +99,7 @@
                         For more information on any of our products and services across Scotland please call us on 01382 225 934 and ask for a FREE no-obligation quote.
                     </span>
                 </p>
-                <button type="button" class="btn btn-xlarge btn-outline-light" data-aos="fade-up" data-aos-delay="200">GET A QUOTE</button>
+                <a asp-controller="Home" asp-action="Contact" class="btn btn-xlarge btn-outline-light" data-aos="fade-up" data-aos-delay="200">GET A QUOTE</a>
             </div>
 
         </div>
@@ -119,11 +121,11 @@
                 </div>
                 <div class="col-md-4">
                     <h5><b>Useful Links</b></h5>
-                    <h6><a href="@Url.Action("About","Home")">About</a> <a href="@Url.Action("Contact","Home")">Contact</a></h6>
-                    <h6><a href="@Url.Action("Services","Home")">Services</a> <a href="@Url.Action("Index","Projects")">Previous Work</a></h6>
-                    <h6><a href="@Url.Action("Kitchens","Projects")">Kitchens</a> <a href="@Url.Action("Bathroom","Projects")">Bathrooms</a></h6>
-                    <h6><a href="@Url.Action("Commercial","Projects")">Commercial</a> <a href="@Url.Action("WindowsDoors","Projects")">Windows</a></h6>
-                    <a href="@Url.Action("Maintenance","Projects")">Maintenance</a>
+                    <h6><a asp-controller="Home" asp-action="About">About</a><a asp-controller="Home" asp-action="Contact">Contact</a></h6>
+                    <h6><a asp-controller="Home" asp-action="Services">Services</a> <a asp-controller="Projects" asp-action="Index">Projects</a>  </h6>
+                    <h6><a asp-controller="Projects" asp-action="Tag" asp-route-tag="Kitchen">Kitchens</a> <a asp-controller="Projects" asp-action="Tag" asp-route-tag="Bathroom">Bathrooms</a></h6>
+                    <h6><a asp-controller="Projects" asp-action="Tag" asp-route-tag="Commercial">Commercial</a> <a asp-controller="Projects" asp-action="Tag" asp-route-tag="Windows">Windows</a></h6>
+                    <a asp-controller="Projects" asp-action="Tag" asp-route-tag="Maintenance">Maintenance</a>
                 </div>
                 <div class="col-md-4">
                     <br />
@@ -164,6 +166,7 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
+    <script src="~/js/lightbox.js"></script>
     <script>
         $(function () {
             $(document).scroll(function () {
