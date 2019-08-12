@@ -12,15 +12,22 @@ namespace rpm_joinery.ViewModels
     {
         [Required]
         public string Title { get; set; }
+
         [Required]
         public string Description { get; set; }
+
         [Required]
         [Display(Name="Services Provided")]
         public string ServicesProvided { get; set; }
         public List<Tag> TagSelectListItems { get; set; }
+
         [Required]
         public List<string> Tags { get; set; }
+
         [Required]
         public List<IFormFile> Images { get; set; }
+
+        [Required]
+        public List<string> ImageCaptions { get; set; }
     }
 }

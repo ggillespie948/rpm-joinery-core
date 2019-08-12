@@ -33,10 +33,16 @@ namespace rpm_joinery.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            //Set SEO keywords, description, and other meta data in view bag so can be changed dynamically in layout
+            ViewBag.Title = "Projects | RPM Joinery and Maintenance";
+            ViewBag.MetaDescription = "RPM Joinery and Maintenance Previous Work and Projects";
+            ViewBag.MetaKeywords = "RPM joinery maintenance, dundee joiner, rpm projects, rpm joinery, broughty ferry joiner, rpm dundee, kitchen fitting dundee, decking dundee, reliable joiner dundee, flat renovation dundee, bathroom fitting dundee, windows, doors, property management";
+
             var projects = _context.Projects
                 .Include(i => i.Images)
                 .Include(i => i.Tags)
                 .Where(i => i.Images.Count > 0)
+                .Take(6)
                 .ToList();
             return View(projects);
         }
@@ -44,6 +50,11 @@ namespace rpm_joinery.Controllers
         [HttpGet]
         public IActionResult Tag([FromQuery] string tag)
         {
+            //Set SEO keywords, description, and other meta data in view bag so can be changed dynamically in layout
+            ViewBag.Title = tag + " | RPM Joinery and Maintenance";
+            ViewBag.MetaDescription = "RPM Joinery and Maintenance Previous Work and Projects " + tag;
+            ViewBag.MetaKeywords = "RPM joinery maintenance, dundee joiner, rpm projects, rpm joinery, broughty ferry joiner, rpm dundee, kitchen fitting dundee, decking dundee, reliable joiner dundee, flat renovation dundee, bathroom fitting dundee, "+tag+", doors, property management";
+
             var projects = _context.Projects
                 .Include(i => i.Images)
                 .Include(i => i.Tags)
@@ -65,6 +76,12 @@ namespace rpm_joinery.Controllers
 
             if (project == null) return NotFound();
 
+            //Set SEO keywords, description, and other meta data in view bag so can be changed dynamically in layout
+            ViewBag.Title = project.Title + " | RPM Joinery and Maintenance";
+            ViewBag.MetaDescription = "RPM Joinery and Maintenance Previous Work and Projects. " + project.Description;
+            ViewBag.MetaKeywords = "RPM joinery maintenance, dundee joiner, rpm projects, rpm joinery, broughty ferry joiner, rpm dundee, kitchen fitting dundee, decking dundee, reliable joiner dundee, flat renovation dundee, bathroom fitting dundee, " + project.ServicesProvided + ", doors, property management";
+
+
             var tags = _context.Tags.ToList();
             Random rnd = new Random();
             foreach (var tag in tags)
@@ -77,7 +94,10 @@ namespace rpm_joinery.Controllers
                 ProjectId = project.Id,
                 Project = project,
                 BrowseTags = tags,
-            }; // todo: add previous and next
+            };
+
+            viewModel.PreviousProjectId = _context.Projects.Where(i => i.Id != id).FirstOrDefault().Id;
+            viewModel.NextProjectId = _context.Projects.Where(i => i.Id != id).LastOrDefault().Id;
 
             return View(viewModel);
         }
@@ -138,16 +158,22 @@ namespace rpm_joinery.Controllers
                 // Deal with image upload
                 if (model.Images != null && model.Images.Count > 0)
                 {
-                    foreach (IFormFile image in model.Images)
+                    for(var i=0;i<model.Images.Count;i++)
                     {
                         string uploadsFolder = Path.Combine(_honestingEnvironment.WebRootPath, "images");
-                        string uniqueFileName = Guid.NewGuid().ToString() + "_" + image.FileName;
+                        string uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Images[i].FileName;
                         string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                        image.CopyTo(new FileStream(filePath, FileMode.Create));
-
+                        model.Images[i].CopyTo(new FileStream(filePath, FileMode.Create));
                         var projectImage = new ProjectImage();
+
+                        if (i == 0)
+                        {
+                            projectImage.IsPrimaryImage = true;
+                        }
+
                         projectImage.ProjectId = newProject.Id;
                         projectImage.ImageFilePath = "/images/" + uniqueFileName;
+                        projectImage.ImageDescription = model.ImageCaptions[i];
                         newProject.Images.Add(projectImage);
                     }
                 }
@@ -157,6 +183,19 @@ namespace rpm_joinery.Controllers
                 }
 
                 _context.SaveChanges();
+
+                //Set SEO keywords, description, and other meta data in view bag so can be changed dynamically in layout
+                ViewBag.Title = "Projects | RPM Joinery and Maintenance";
+                ViewBag.MetaDescription = "RPM Joinery and Maintenance Previous Work and Projects";
+                ViewBag.MetaKeywords = "RPM joinery maintenance, dundee joiner, rpm projects, rpm joinery, broughty ferry joiner, rpm dundee, kitchen fitting dundee, decking dundee, reliable joiner dundee, flat renovation dundee, bathroom fitting dundee, windows, doors, property management";
+
+                var projects = _context.Projects
+                    .Include(i => i.Images)
+                    .Include(i => i.Tags)
+                    .Where(i => i.Images.Count > 0)
+                    .Take(6)
+                    .ToList();
+
                 return View("Index");
             }
             model.TagSelectListItems = _context.Tags.ToList();
@@ -167,7 +206,11 @@ namespace rpm_joinery.Controllers
         [Authorize]
         public IActionResult Edit(int id)
         {
-            var project = _context.Projects.Where(i => i.Id == id).FirstOrDefault();
+            var project = _context.Projects.Where(i => i.Id == id)
+                .Include(i=>i.Tags)
+                .Include(i=>i.Images)
+                .FirstOrDefault();
+
             if (project == null) return NotFound();
 
             var viewModel = new EditProjectViewModel();
@@ -188,9 +231,9 @@ namespace rpm_joinery.Controllers
 
         [HttpPost]
         [Authorize]
-        public IActionResult Edit(EditProjectViewModel viewModel)
+        public IActionResult EditProject(EditProjectViewModel viewModel)
         {
-            var project = _context.Projects.Where(i => i.Id == viewModel.ProjectId).FirstOrDefault();
+            var project = _context.Projects.Where(i => i.Id == viewModel.ProjectId).Include(i => i.Images).Include(i => i.Tags).FirstOrDefault();
             if (project == null) return NotFound();
 
             if (ModelState.IsValid)
@@ -198,10 +241,7 @@ namespace rpm_joinery.Controllers
                 project.Title = viewModel.Title;
                 project.Description = viewModel.Description;
                 project.ServicesProvided = viewModel.ServicesProvided;
-                project.Tags = new List<ProjectTag>();
-                project.Images = new List<ProjectImage>();
                 project.CreatedOn = DateTime.Today;
-
 
                 // Deal with Assigned Tags
                 if (viewModel.Tags != null && viewModel.Tags.Count > 0)
@@ -216,12 +256,15 @@ namespace rpm_joinery.Controllers
                             existingTags.Add(newTag);
                         }
 
-                        var projectTag = new ProjectTag();
-                        projectTag.TagId = existingTags.Where(i => i.Name.Contains(tag)).FirstOrDefault().Id;
-                        projectTag.Tag = existingTags.Where(i => i.Name.Contains(tag)).FirstOrDefault();
-                        projectTag.ProjectId = project.Id;
-                        projectTag.Project = project;
-                        project.Tags.Add(projectTag);
+                        if(!project.Tags.Where(i=>i.Tag.Name.Contains(tag)).Any())
+                        {
+                            var projectTag = new ProjectTag();
+                            projectTag.TagId = existingTags.Where(i => i.Name.Contains(tag)).FirstOrDefault().Id;
+                            projectTag.Tag = existingTags.Where(i => i.Name.Contains(tag)).FirstOrDefault();
+                            projectTag.ProjectId = project.Id;
+                            projectTag.Project = project;
+                            project.Tags.Add(projectTag);
+                        }
                     }
                 }
                 else
@@ -254,21 +297,27 @@ namespace rpm_joinery.Controllers
                 }
 
                 _context.SaveChanges();
-                return View("Index");
+                var projects = _context.Projects
+               .Include(i => i.Images)
+               .Include(i => i.Tags)
+               .Where(i => i.Images.Count > 0)
+               .ToList();
+
+                return View("Index", projects);
             }
             viewModel.TagSelectListItems = _context.Tags.ToList();
             return View(viewModel);
         }
 
-        [HttpDelete]
+        [HttpPost]
         [Authorize]
         public IActionResult DeleteProjectImage(int id)
         {
             var projectImage = _context.ProjectImages.Where(i => i.Id == id).FirstOrDefault();
             if (projectImage == null) return NotFound();
 
-            string fileLocation = Path.Combine(_honestingEnvironment.WebRootPath, projectImage.ImageFilePath);
-            System.IO.File.Delete(fileLocation);
+            //string fileLocation = Path.Combine(_honestingEnvironment.WebRootPath, projectImage.ImageFilePath);
+            //System.IO.File.Delete(fileLocation);
 
             _context.ProjectImages.Remove(projectImage);
             _context.SaveChanges();
@@ -276,7 +325,32 @@ namespace rpm_joinery.Controllers
             return Json(new { deleted = true });
         }
 
-        [HttpDelete]
+        [HttpPost]
+        [Authorize]
+        public IActionResult SetImageAsPrimary(int projectId, int imageId)
+        {
+            var project = _context.Projects.Where(i => i.Id == projectId)
+                .Include(i => i.Images)
+                .Include(i => i.Tags)
+                .FirstOrDefault();
+            if (project == null) return NotFound();
+
+            var projectImg = project.Images.Where(i => i.Id == imageId).FirstOrDefault();
+            if (projectImg == null) return NotFound();
+
+            foreach(var img in project.Images)
+            {
+                img.IsPrimaryImage = false;
+            }
+
+            projectImg.IsPrimaryImage = true;
+
+            _context.Update(project);
+            _context.SaveChanges();
+
+            return Json(new { updated = true });
+        }
+
         [Authorize]
         public IActionResult DeleteProject(int id)
         {
@@ -287,7 +361,15 @@ namespace rpm_joinery.Controllers
             _context.SaveChanges();
 
             ViewBag.Notification = "Project Deleted.";
-            return View("Index");
+
+            var projects = _context.Projects
+                .Include(i => i.Images)
+                .Include(i => i.Tags)
+                .Where(i => i.Images.Count > 0)
+                .ToList();
+
+            return View("Index", projects);
         }
+
     }
 }

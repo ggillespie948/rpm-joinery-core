@@ -52,11 +52,12 @@
                     <label asp-for="Images" class="control-label"> </label>
                     <div class="custom-file">
                         <input multiple id="gallery-photo-add" asp-for="Images" class="form-control custom-file-input" />
-                        <label class="custom-file-label"> Choose Multiple Files.. </label>
+                        <label id="gallery-input-label" class="custom-file-label"> Choose Multiple Files.. </label>
                     </div>
                     <span asp-validation-for="Images" class="text-danger"></span>
                 </div>
 
+                <div class="gallery row" id="gallery" style="text-align:center;"></div>
             </form>
         </div>
         <div class="col-md-4">
@@ -73,10 +74,10 @@
             </div>
         </div>
     </div>
-    <div class="gallery row" id="gallery" style="text-align:center;"></div>
     <div>
     </div>
 </div>
+
 
 
 @section Scripts {
@@ -101,18 +102,63 @@
                         var reader = new FileReader();
 
                         reader.onload = function (event) {
-                            $("<div><img></img></div>")
-                                .addClass("column") // div
+                            $("<div><img></img><div><label></label><input></input><span></span></div></div>")
+                                .addClass("form-group row centerDiv")
+                                .attr('style', "width:100%;")
                                 .find("img")
                                 .attr('src', event.target.result)
                                 .attr('class', "img-thumbnail")
                                 .attr('style', "max-width:300px;max-height:300px;")
+                                .end()
+                                .find("div:eq(1)")
+                                .addClass("form-group") // div
+                                .end()
+                                .find("label")
+                                .addClass("control-label") // label
+                                .html("Image caption:")
+                                 .end()
+                                .find("input")
+                                .addClass("form-control") // input
+                                .attr('name', "ImageCaptions")
+                                .attr('asp-for', "ImageCaptions")
                                 .end()
                                 .appendTo(placeToInsertImagePreview);
                         }
 
                         reader.readAsDataURL(input.files[i]);
                     }
+
+                     $('#gallery-input-label').html(input.files.length + " files selected.");
+                }
+
+            };
+
+            var generateImageCaptionInput = function () {
+
+                if (input.files) {
+                    var filesAmount = input.files.length;
+
+                    $('#gallery').empty();
+
+                    for (i = 0; i < filesAmount; i++) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (event) {
+                            $("<div><label></label><input></input><span></span></div>")
+                                .addClass("form-group") // div
+                                .find("label")
+                                .addClass("control-label") // label
+                                .find("input")
+                                .addClass("form-control") // input
+                                .attr('name', "img-caption")
+                                .end()
+                                .appendTo('form.createForm');
+                        }
+
+                        reader.readAsDataURL(input.files[i]);
+                    }
+
+                   
                 }
 
             };
