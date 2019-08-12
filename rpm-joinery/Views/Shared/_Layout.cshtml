@@ -3,8 +3,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] | RPM Joinery & Maintenance </title>
+    <title> @ViewBag.Title | RPM Joinery & Maintenance </title>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <meta name="description" content='@(ViewBag.MetaDescription ?? "Welcome to the site!")'>
+    <meta name="keywords" value="@ViewBag.MetaKeywords" />
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -19,7 +21,8 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
     <link href="~/css/lightbox.css" rel="stylesheet" />
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
+
 </head>
 <body>
     <header>
@@ -50,22 +53,22 @@
                                 Projects
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-                                <a class="dropdown-item" href="@Url.Action("Index","Projects")">All </a>
-                                <a class="dropdown-item" href="@Url.Action("Kitchens","Projects")">Kitchens</a>
-                                <a class="dropdown-item" href="@Url.Action("Bathroom","Projects")">Bathrooms & Wet Walls</a>
-                                <a class="dropdown-item" href="@Url.Action("WindowsDoors","Projects")">Windows & Doors</a>
-                                <a class="dropdown-item" href="@Url.Action("DeckingFencing","Projects")">Decking & Fencing</a>
-                                <a class="dropdown-item" href="@Url.Action("Maintenance","Projects")">General maintenance</a>
+                                <a class="dropdown-item" asp-controller="Projects" asp-action="Index">All</a>
+                                <a class="dropdown-item" asp-controller="Projects" asp-action="Tag" asp-route-tag="Kitchen">Kitchens</a>
+                                <a class="dropdown-item" asp-controller="Projects" asp-action="Tag" asp-route-tag="Commercial">Commercial</a>
+                                <a class="dropdown-item" asp-controller="Projects" asp-action="Tag" asp-route-tag="Bathroom">Bathrooms</a>
+                                <a class="dropdown-item" asp-controller="Projects" asp-action="Tag" asp-route-tag="Floor">Flooring</a>
+                                <a class="dropdown-item" asp-controller="Projects" asp-action="Tag" asp-route-tag="Maintenance">Maintenance</a>
                             </div>
                         </li>
 
-                        @if (!User.Identity.IsAuthenticated)
+                        @if (User.Identity.IsAuthenticated)
                         {
                             <li>
-                                <form method="post" action="@Url.Action("LogOff", "Account")" id="signoutfrm" style="display:none;">
+                                @*<form method="post" action="@Url.Action("LogOff", "Account")" id="signoutfrm" style="display:none;">
                                     @Html.AntiForgeryToken()
-                                </form>
-                                <a href="" class="btn btn-danger" onclick="$('#signoutfrm').submit(); return false;">Log Out</a>
+                                </form>*@
+                                <a asp-area="Identity" asp-action="Logout" class="btn btn-danger">Log Out</a>
                             </li>
                         }
                       
@@ -77,9 +80,10 @@
 
 
     <!-- Main Render Entry Point -->
-    <partial name="_CookieConsentPartial" />
+    
     <main role="main" class="pb-3">
         @RenderBody()
+        <partial name="_CookieConsentPartial" />
     </main>
     @*<div class="credit-container" id="credit-container">
             <a href="@Url.Action("About","Home")"> <img src="../../img/DttLogo.png" height="64" alt="Dundee Trusted Trader Scheme Logo" align="middle"> </a>
@@ -105,7 +109,6 @@
         </div>
     </div>
     <div class="pre-footer">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
         <div class="container">
             <div class="row centered">
                 <div class="col-md-4">
@@ -121,7 +124,7 @@
                 </div>
                 <div class="col-md-4">
                     <h5><b>Useful Links</b></h5>
-                    <h6><a asp-controller="Home" asp-action="About">About</a><a asp-controller="Home" asp-action="Contact">Contact</a></h6>
+                    <h6><a asp-controller="Home" asp-action="About">About</a> <a asp-controller="Home" asp-action="Contact">Contact</a></h6>
                     <h6><a asp-controller="Home" asp-action="Services">Services</a> <a asp-controller="Projects" asp-action="Index">Projects</a>  </h6>
                     <h6><a asp-controller="Projects" asp-action="Tag" asp-route-tag="Kitchen">Kitchens</a> <a asp-controller="Projects" asp-action="Tag" asp-route-tag="Bathroom">Bathrooms</a></h6>
                     <h6><a asp-controller="Projects" asp-action="Tag" asp-route-tag="Commercial">Commercial</a> <a asp-controller="Projects" asp-action="Tag" asp-route-tag="Windows">Windows</a></h6>
@@ -166,6 +169,7 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
+    <script src="~/js/jquery.equalheights.js"></script>
     <script src="~/js/lightbox.js"></script>
     <script>
         $(function () {
