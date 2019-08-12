@@ -14,5 +14,6 @@ namespace rpm_joinery.Models.Projects
         public Project Project { get; set; }
         public string ImageFilePath { get; set; }
         public string ImageDescription { get; set; }
+        public bool IsPrimaryImage { get; set; }
     }
 }
