@@ -3,42 +3,49 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using rpm_joinery.Data;
 using rpm_joinery.Models;
 
 namespace rpm_joinery.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationDbContext _context { get; set; }
+        private readonly IHostingEnvironment _honestingEnvironment;
+
+        public HomeController(ApplicationDbContext context, IHostingEnvironment env)
+        {
+            _context = context;
+            _honestingEnvironment = env;
+        }
+
         public IActionResult Index()
         {
             //Set SEO keywords, description, and other meta data in view bag so can be changed dynamically in layout
-            ViewBag.Title = "RPM Joinery and      Maintenance | Dundee Joinery Services";
+            ViewBag.Title = "RPM Joinery and Maintenance | Dundee Joinery Services";
             ViewBag.MetaDescription = "RPM Joinery and Maintenance provide top quality joinery and maintenance services to Dundee, Angus and Fife, all at a great price.";
-            ViewBag.MetaKeywords = "RPM joinery maintenance, dundee joiner, dundee joinery, lochee joiner, broughty ferry joiner, rpm dundee, kitchen fitting dundee, decking dundee, reliable joiner dundee, flat renovation dundee, bathroom fitting dundee, windows, doors, property management";
+            ViewBag.MetaKeywords = "RPM joinery maintenance, dundee joiner, rpm dundee, rpm joinery, broughty ferry joiner, rpm dundee, kitchen fitting dundee, decking dundee, reliable joiner dundee, flat renovation dundee, bathroom fitting dundee, windows, doors, property management";
 
 
-            // Retrieve the 3 most recent projects from the data base and display in the preview of the index home page 
-            List<Project> projects = new List<Project>();
-            projects.Reverse();
-            List<Project> recentProjects = new List<Project>();
-            int projectCounter = 0;         
-
-            foreach (Project proj in projects)
-            {
-                recentProjects.Add(proj);
-                projectCounter++;
-
-                if (projectCounter > 2)
-                    break;
-            }
-
-            return View(recentProjects);
+            var projects = _context.Projects
+                .Include(i => i.Images)
+                .Include(i => i.Tags)
+                .Where(i => i.Images.Count > 0)
+                .Take(6)
+                .ToList();
+            return View(projects);
         }
 
         [Route("privacy")]
         public IActionResult Privacy()
         {
+            //Set SEO keywords, description, and other meta data in view bag so can be changed dynamically in layout
+            ViewBag.Title = "Privacy Policy | RPM Joinery and Maintenance";
+            ViewBag.MetaDescription = "RPM Joinery and Maintenance is a family run business that take great pride in providing the best possible service to meet all of our consumer's needs.";
+            ViewBag.MetaKeywords = "RPM joinery maintenance, reliable joiner, trusted joiner dundee, quality cheap joiner dundee angus, about rpm dundee, trusted trader dundee joiner, trusted joiner angus, family run joiner dundee";
             return View();
         }
 
