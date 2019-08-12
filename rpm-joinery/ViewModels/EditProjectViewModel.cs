@@ -24,7 +24,9 @@ namespace rpm_joinery.ViewModels
         public string ServicesProvided { get; set; }
         [Required]
         public List<string> Tags { get; set; }
-        [Required]
+
         public List<IFormFile> Images { get; set; }
+
+        public List<string> ImageCaptions { get; set; }
     }
 }

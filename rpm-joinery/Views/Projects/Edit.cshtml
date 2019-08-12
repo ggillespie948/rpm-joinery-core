@@ -1,7 +1,7 @@
 ﻿@model rpm_joinery.ViewModels.EditProjectViewModel
 
 @{
-    ViewData["Title"] = "Create Project";
+    ViewData["Title"] = "Edit Project";
 }
 
 <br />
@@ -12,13 +12,14 @@
 
 
 <div class="container">
-    <h1>Create New Project</h1>
+    <h1>Edit Project</h1>
     <br />
     <div class="row">
         <div class="col-md-8">
-            <form enctype="multipart/form-data" asp-action="Create" id="createForm">
+            <form enctype="multipart/form-data" asp-controller="Projects" asp-action="EditProject" method="post" id="editForm">
                 <h4>Project Details</h4>
                 <hr />
+                <input hidden asp-for="ProjectId" />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Title" class="control-label"></label>
@@ -41,6 +42,12 @@
                     <select asp-for="Tags" class="form-control js-tags" multiple="multiple">
                         @foreach (var tag in Model.TagSelectListItems)
                         {
+                            @if (Model.Project.Tags.Where(i => i.Tag.Name == tag.Name).Any())
+                            {
+                                <option selected="selected">
+                                    @tag.Name
+                                </option>
+                            }
                             <option>
                                 @tag.Name
                             </option>
@@ -56,7 +63,7 @@
                     </div>
                     <span asp-validation-for="Images" class="text-danger"></span>
                 </div>
-
+                <div class="gallery row" id="gallery" style="text-align:center;"></div>
             </form>
         </div>
         <div class="col-md-4">
@@ -65,15 +72,36 @@
                 <br />
             </div>
             <div class="form-group">
-                <a href="javascript:{}" onclick="document.getElementById('createForm').submit();" class="btn btn-block btn-lg btn-success">Create New Project</a>
+                <a href="javascript:{}" onclick="document.getElementById('editForm').submit();" class="btn btn-block btn-lg btn-success">Save Changes</a>
             </div>
 
             <div class="form-group">
                 <a asp-action="Index" class="btn btn-block btn-lg btn-danger">Cancel</a>
             </div>
+
+            <div class="form-group">
+                <a asp-action="DeleteProject" asp-controller="Projects" asp-route-id="@Model.ProjectId" class="btn btn-block btn-lg btn-warning" style="color:white;">Delete Project</a>
+            </div>
         </div>
     </div>
-    <div class="gallery row" id="gallery" style="text-align:center;"></div>
+
+    @foreach (var img in Model.Project.Images)
+    {
+        <div class="column">
+            <img src="@img.ImageFilePath" class="img-thumbnail" style="max-width:300px; max-height:300px;" />
+            <br />
+            <a class="btn btn-danger removeImage" data-project-id="@img.ProjectId" data-image-id="@img.Id" style="color:white;">Delete Image </a>
+            @if (!img.IsPrimaryImage)
+            {
+                <a class="btn btn-primary makePrimaryImage" data-project-id="@img.ProjectId" data-image-id="@img.Id" style="color:white;">Set As Primary Image </a>
+            }
+            else
+            {
+                <a class="btn btn-primary makePrimaryImage" style="display:none; color:white;" data-project-id="@img.ProjectId" data-image-id="@img.Id" style="color:white;">Set As Primary Image </a>
+            }
+        </div>
+        <br />
+    }
     <div>
     </div>
 </div>
@@ -86,6 +114,8 @@
             placeholder: 'Select or type tags'
         });
     </script>
+
+
 
     <!-- File Uploader Image Preview -->
     <script>
@@ -101,18 +131,33 @@
                         var reader = new FileReader();
 
                         reader.onload = function (event) {
-                            $("<div><img></img></div>")
-                                .addClass("column") // div
+                            $("<div><img></img><div><label></label><input></input><span></span></div></div>")
+                                .addClass("form-group row centerDiv")
+                                .attr('style', "width:100%;")
                                 .find("img")
                                 .attr('src', event.target.result)
                                 .attr('class', "img-thumbnail")
                                 .attr('style', "max-width:300px;max-height:300px;")
+                                .end()
+                                .find("div:eq(1)")
+                                .addClass("form-group") // div
+                                .end()
+                                .find("label")
+                                .addClass("control-label") // label
+                                .html("Image caption:")
+                                 .end()
+                                .find("input")
+                                .addClass("form-control") // input
+                                .attr('name', "ImageCaptions")
+                                .attr('asp-for', "ImageCaptions")
                                 .end()
                                 .appendTo(placeToInsertImagePreview);
                         }
 
                         reader.readAsDataURL(input.files[i]);
                     }
+
+                     $('#gallery-input-label').html(input.files.length + " files selected.");
                 }
 
             };
@@ -124,8 +169,73 @@
         });
     </script>
 
-    <script type="text/javascript">
-        function submitform() { document.myform.submit(); }
+    <!-- make primary image  -->
+    <script>
+        $(function () {
+            $(".makePrimaryImage").click(function () {
+                var $this = $(this);
+                var projectId = $this.data("project-id");
+                var imageId = $this.data("image-id");
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Projects/SetImageAsPrimary",
+                    dataType: "json",
+                    data: { projectId: projectId, imageId: imageId },
+                    success: function (data) {
+                        if (data.updated === true) {
+                            alert("Primary image updated and saved.");
+                            /* Update buttons */
+                            showNonPrimaryButtons();
+                            $this.hide();
+                        } else {
+                            alert("Error: could not update primary image");
+                        }
+                    }
+                });
+            });
+
+            showNonPrimaryButtons = function () {
+                var setPrimaryBtns = document.getElementsByClassName('makePrimaryImage')
+                for (var i = 0; i < setPrimaryBtns.length; i++) {
+                    $(setPrimaryBtns.item(i)).show();
+                };
+            }
+        });
+    </script>
+
+
+    <!-- delete image event handler -->
+    <script>
+        $(function () {
+            $(".removeImage").click(function () {
+                var $this = $(this);
+                var imageId = $this.data("image-id");
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Projects/DeleteProjectImage",
+                    dataType: "json",
+                    data: { id: imageId },
+                    success: function (data) {
+                        if (data.deleted === true) {
+                            alert("Image removed.");
+                            /* Update buttons */
+                            $this.parent().hide();
+                        } else {
+                            alert("Error: could not delete image");
+                        }
+                    }
+                });
+            });
+
+            showNonPrimaryButtons = function () {
+                var setPrimaryBtns = document.getElementsByClassName('makePrimaryImage')
+                for (var i = 0; i < setPrimaryBtns.length; i++) {
+                    $(setPrimaryBtns.item(i)).show();
+                };
+            }
+        });
     </script>
 
     <script type="text/javascript">
