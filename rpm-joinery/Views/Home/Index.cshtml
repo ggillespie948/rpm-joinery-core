@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<rpm_joinery.Models.Project>
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -18,7 +19,8 @@
         js = d.createElement(s); js.id = id;
         js.src = 'https://connect.facebook.net/en_GB/sdk/xfbml.customerchat.js';
         fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
+    }(document, 'script', 'facebook-jssdk'));
+</script>
 
 <!-- Your customer chat code -->
 <div class="fb-customerchat"
@@ -137,66 +139,31 @@
     <br />
     <div class="row">
         <ul class="cards">
-            <li class="cards_item" data-aos="fade-up" data-aos-delay="0">
-                <div class="card">
-                    <div class="card_image"><img class="card-img-top" src="https://localhost:44327/img/rpmBig.png"></div>
-                    <div class="card_content">
-                        <h2 class="card_title">Card Grid Layout</h2>
-                        <p class="card_text">Demo of pixel perfect pure CSS simple responsive card grid layout</p>
-                        <button class="btn card_btn">Read More</button>
+            @{
+                var delayOffset = 0;
+            }
+            @foreach (var project in Model)
+            {
+                <li class="cards_item" data-aos="fade-up" data-aos-delay="@delayOffset">
+                    <div class="card">
+                        <div class="card_image"><a href="@Url.Action("Details", "Projects", new { id = project.Id })"><img class="card-img-top" src='@project.Images.Where(i=>i.IsPrimaryImage).FirstOrDefault().ImageFilePath'></a></div>
+                        <div class="card_content">
+                            <h2 class="card_title">@project.Title</h2>
+                            @if (project.Description.Length > 80)
+                            {
+                                <p class="card_text">@project.Description.Substring(0, 80)...</p>
+                            }
+                            else
+                            {
+                                <p class="card_text">@project.Description</p>
+                            }
+                            <a class="btn card_btn" href="@Url.Action("Details", "Projects", new { id = project.Id })">Read More</a>
+                        </div>
                     </div>
-                </div>
-            </li>
-            <li class="cards_item" data-aos="fade-up" data-aos-delay="200">
-                <div class="card">
-                    <div class="card_image"><img class="card-img-top" src="https://picsum.photos/500/300/?image=5"></div>
-                    <div class="card_content">
-                        <h2 class="card_title">Card Grid Layout</h2>
-                        <p class="card_text">Demo of pixel perfect pure CSS simple responsive card grid layout</p>
-                        <button class="btn card_btn">Read More</button>
-                    </div>
-                </div>
-            </li>
-            <li class="cards_item" data-aos="fade-up" data-aos-delay="400">
-                <div class="card">
-                    <div class="card_image"><img class="card-img-top" src="https://picsum.photos/500/300/?image=11"></div>
-                    <div class="card_content">
-                        <h2 class="card_title">Card Grid Layout</h2>
-                        <p class="card_text">Demo of pixel perfect pure CSS simple responsive card grid layout</p>
-                        <button class="btn card_btn">Read More</button>
-                    </div>
-                </div>
-            </li>
-            <li class="cards_item" data-aos="fade-up" data-aos-delay="0">
-                <div class="card">
-                    <div class="card_image"><img class="card-img-top" src="https://picsum.photos/500/300/?image=14"></div>
-                    <div class="card_content">
-                        <h2 class="card_title">Card Grid Layout</h2>
-                        <p class="card_text">Demo of pixel perfect pure CSS simple responsive card grid layout</p>
-                        <button class="btn card_btn">Read More</button>
-                    </div>
-                </div>
-            </li>
-            <li class="cards_item" data-aos="fade-up" data-aos-delay="200">
-                <div class="card">
-                    <div class="card_image"><img class="card-img-top" src="https://picsum.photos/500/300/?image=17"></div>
-                    <div class="card_content">
-                        <h2 class="card_title">Card Grid Layout</h2>
-                        <p class="card_text">Demo of pixel perfect pure CSS simple responsive card grid layout</p>
-                        <button class="btn card_btn">Read More</button>
-                    </div>
-                </div>
-            </li>
-            <li class="cards_item" data-aos="fade-up" data-aos-delay="400">
-                <div class="card">
-                    <div class="card_image"><img class="card-img-top" src="https://picsum.photos/500/300/?image=2"></div>
-                    <div class="card_content">
-                        <h2 class="card_title">Card Grid Layout</h2>
-                        <p class="card_text">Demo of pixel perfect pure CSS simple responsive card grid layout</p>
-                        <button class="btn card_btn">Read More</button>
-                    </div>
-                </div>
-            </li>
+                </li>
+                delayOffset = delayOffset + 250;
+                if (delayOffset >= 750) { delayOffset = 0; }
+            }
         </ul>
     </div>
 
@@ -209,5 +176,5 @@
         $('#home-link').addClass('active');
     </script>
 
-    
+
 }
