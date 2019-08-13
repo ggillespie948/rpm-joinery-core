@@ -41,7 +41,6 @@
     <None Include="wwwroot\img\ArtsLogo.png" />
     <None Include="wwwroot\img\ArtsLogo2.PNG" />
     <None Include="wwwroot\img\carousel_bathroom.jpeg" />
-    <None Include="wwwroot\img\carousel_doorswindows.jpeg" />
     <None Include="wwwroot\img\carousel_kitchen.jpeg" />
     <None Include="wwwroot\img\commercial.jpg" />
     <None Include="wwwroot\img\DttLogo.png" />
