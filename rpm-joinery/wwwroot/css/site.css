@@ -392,6 +392,19 @@ button.accept-policy {
     }
 }
 
+.blur {
+    background-color: rgba(0, 0, 0, 0.02) !important;
+    -webkit-animation: 1.5s linear forwards blur;
+    -moz-animation: 1.5s linear forwards blur;
+    -o-animation: 1.5s linear forwards blur;
+    animation: 1.5s linear forwards blur;
+    background-color: rgba(0, 0, 0, 0.50);
+}
+ @-webkit-keyframes blur { from { filter:blur(0px); } to { filter:blur(8px); }  }
+ @-moz-keyframes blur { from { filter:blur(0px); } to { filter:blur(8px); }  }
+ @-o-keyframes blur { from { filter:blur(0px); } to { filter:blur(8px); }  }
+ @keyframes blur { from { filter:blur(0px); } to { filter:blur(8px); }  }
+
 
 .reveal {
     background-color: rgba(0, 0, 0, 0.02) !important;
