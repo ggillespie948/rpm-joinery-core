@@ -407,6 +407,16 @@ button.accept-policy {
  @keyframes reveal { from { filter:blur(8px); } to { filter:blur(0px); }  }
 
 
+@media screen and (max-width: 475px) {
+    .overlay {
+        display:none;
+    }
+
+    .overlay-right {
+        display: none;
+    }
+}
+
 .overlay {
     position: absolute;
     top: 0;
