@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -91,6 +92,20 @@ namespace rpm_joinery.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete("AuthCookie");
+            var projects = _context.Projects
+                .Include(i => i.Images)
+                .Include(i => i.Tags)
+                .Where(i => i.Images.Count > 0)
+                .Take(6)
+                .ToList();
+            return RedirectToAction("Index",projects);
         }
     }
 }

@@ -68,7 +68,7 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li>
-                                <a asp-area="Identity" asp-action="Logout" class="btn btn-danger">Log Out</a>
+                                <a asp-controller="Home" asp-action="Logout" class="btn btn-danger">Log Out</a>
                             </li>
                         }
 
@@ -133,7 +133,7 @@
                     <br />
                     <h6><a href="#">XML Site Map</a></h6>
                     <h6><a href="@Url.Action("Cookies","Home")">Cookie Policy</a></h6>
-                    <h6><a href="@Url.Action("Login","Account")">RPM Login</a></h6>
+                    <h6><a href="/Identity/Account/Login">RPM Login</a></h6>
                 </div>
             </div>
         </div>
