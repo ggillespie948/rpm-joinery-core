@@ -47,7 +47,7 @@
             <h4> Description </h4>
             <h6> @Model.Project.Description </h6>
             <br />
-            <div class="row justify-content-center">
+            <div class="row">
                 @{
                     foreach (var image in Model.Project.Images.Where(i => !i.IsPrimaryImage))
                     {

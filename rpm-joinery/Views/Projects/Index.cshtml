@@ -86,15 +86,12 @@
     </script>
     <script>
         AOS.init();
-        
     </script>
 
     <script>
         window.onresize = doALoadOfStuff;
         doALoadOfStuff();
         function doALoadOfStuff() {
-            //do a load of stuff
-            console.log("awooga");
             var cardContentList = document.getElementsByClassName(".card_content");
             var maxHeight = 0;
             for (var i = 0; i < cardContentList.Length; i++) {
