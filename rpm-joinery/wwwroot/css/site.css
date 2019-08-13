@@ -496,4 +496,9 @@ button.accept-policy {
     margin-top:25px;
 }
 
+.navbar-dark .navbar-toggler {
+    color: rgba(255, 255, 255, 1) !important;
+    border-color: rgba(255, 255, 255, 1) !important;
+}
+
 
