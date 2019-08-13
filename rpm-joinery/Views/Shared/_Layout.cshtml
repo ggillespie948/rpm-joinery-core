@@ -26,12 +26,15 @@
 </head>
 <body>
     <header>
+        <link rel="stylesheet" type="text/css" href="//wpcc.io/lib/1.0.2/cookieconsent.min.css" />
+        <script src="//wpcc.io/lib/1.0.2/cookieconsent.min.js"></script>
+        <script>window.addEventListener("load", function () { window.wpcc.init({ "border": "thin", "corners": "small", "colors": { "popup": { "background": "#222222", "text": "#ffffff", "border": "#f9f9f9" }, "button": { "background": "#f9f9f9", "text": "#000000" } }, "position": "bottom", "content": { "href": "https://rpm-joinery20190812070745.azurewebsites.net/Cookies" } }) });</script>
         <!-- Navigation -->
         <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark-transparent fixed-top">
             <div class="container">
                 <!-- <a class="navbar-brand" href="index.html">Start Bootstrap</a> -->
                 <a href="@Url.Action("Index","Home")"> <img src="../../img/rpm-logo-trans.png" width="200px" alt="RPM Joinery Logo"> </a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" onclick="darkenNavbar();">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -65,13 +68,10 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li>
-                                @*<form method="post" action="@Url.Action("LogOff", "Account")" id="signoutfrm" style="display:none;">
-                                    @Html.AntiForgeryToken()
-                                </form>*@
                                 <a asp-area="Identity" asp-action="Logout" class="btn btn-danger">Log Out</a>
                             </li>
                         }
-                      
+
                     </ul>
                 </div>
             </div>
@@ -83,7 +83,6 @@
     
     <main role="main" class="pb-3">
         @RenderBody()
-        <partial name="_CookieConsentPartial" />
     </main>
     @*<div class="credit-container" id="credit-container">
             <a href="@Url.Action("About","Home")"> <img src="../../img/DttLogo.png" height="64" alt="Dundee Trusted Trader Scheme Logo" align="middle"> </a>
@@ -181,6 +180,13 @@
     </script>
     <script>
         AOS.init();
+    </script>
+    <script>
+    function darkenNavbar ()
+    {
+        var $nav = $(".navbar");
+        $nav.addClass('scrolled');
+    }
     </script>
 
     @RenderSection("Scripts", required: false)
