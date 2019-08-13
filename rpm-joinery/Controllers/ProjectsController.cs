@@ -96,8 +96,11 @@ namespace rpm_joinery.Controllers
                 BrowseTags = tags,
             };
 
-            viewModel.PreviousProjectId = _context.Projects.Where(i => i.Id != id).FirstOrDefault().Id;
-            viewModel.NextProjectId = _context.Projects.Where(i => i.Id != id).LastOrDefault().Id;
+            if(_context.Projects.ToList().Count > 2)
+            {
+                viewModel.PreviousProjectId = _context.Projects.Where(i => i.Id != id).FirstOrDefault().Id;
+                viewModel.NextProjectId = _context.Projects.Where(i => i.Id != id).LastOrDefault().Id;
+            }
 
             return View(viewModel);
         }
@@ -192,11 +195,10 @@ namespace rpm_joinery.Controllers
                 var projects = _context.Projects
                     .Include(i => i.Images)
                     .Include(i => i.Tags)
-                    .Where(i => i.Images.Count > 0)
                     .Take(6)
                     .ToList();
 
-                return View("Index");
+                return View("Index", projects);
             }
             model.TagSelectListItems = _context.Tags.ToList();
             return View(model);
