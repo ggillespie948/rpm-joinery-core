@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MimeKit;
+using MimeKit.Text;
 using rpm_joinery.Data;
 using rpm_joinery.Models;
+using rpm_joinery.ViewModels;
 
 namespace rpm_joinery.Controllers
 {
@@ -66,7 +70,46 @@ namespace rpm_joinery.Controllers
             ViewBag.Title = "Contact Us | RPM Joinery and Maintenance";
             ViewBag.MetaDescription = "Contact RPM Joinery and Maintenance directly. We are happy to discuss the details of any potential work you may need conducted.";
             ViewBag.MetaKeywords = "RPM Joinery, RPM joienry contact, contact a joiner in dundee, emergency joiner dundee, contact joiner angus";
-            return View();
+            var viewModel = new ContactFormViewModel();
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult SendMessage(ContactFormViewModel viewModel)
+        { 
+            try
+            {
+                //instantiate a new MimeMessage
+                var message = new MimeMessage();
+                //Setting the To e-mail address
+                message.To.Add(new MailboxAddress("Ross Murray", "gzgillespie@outlook.com"));
+                //Setting the From e-mail address
+                message.From.Add(new MailboxAddress(viewModel.FullName, viewModel.Email));
+                //E-mail subject 
+                message.Subject = "New email from RPM Joinery Contact form";
+                //E-mail message body
+                message.Body = new TextPart(TextFormat.Html)
+                {
+                    Text = viewModel.Message + " Message was sent by: " + viewModel.FullName + " E-mail: " + viewModel.Email + " Phone: " + viewModel.PhoneNumber
+                };
+
+                //Configure the e-mail
+                using (var emailClient = new SmtpClient())
+                {
+                    emailClient.Connect("smtp.gmail.com", 587, false);
+                    emailClient.Authenticate("rpmjoinerymailclient@gmail.com", "Rpmjoinery");
+                    emailClient.Send(message);
+                    emailClient.Disconnect(true);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.Clear();
+                ViewBag.Message = $" Oops! We have a problem here {ex.Message}";
+            }
+
+            return RedirectToAction("Contact");
+
         }
 
         [Route("services")]
