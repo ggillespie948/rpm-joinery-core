@@ -82,7 +82,7 @@ namespace rpm_joinery.Controllers
                 //instantiate a new MimeMessage
                 var message = new MimeMessage();
                 //Setting the To e-mail address
-                message.To.Add(new MailboxAddress("Ross Murray", "gzgillespie@outlook.com"));
+                message.To.Add(new MailboxAddress("Ross Murray", "rpmdundee@gmail.com"));
                 //Setting the From e-mail address
                 message.From.Add(new MailboxAddress(viewModel.FullName, viewModel.Email));
                 //E-mail subject 
