@@ -79,8 +79,8 @@
     </header>
 
     <!-- Load Facebook SDK for JavaScript -->
-      <div id="fb-root"></div>
-      <script>
+    <div id="fb-root"></div>
+    <script>
         window.fbAsyncInit = function() {
           FB.init({
             xfbml            : true,
@@ -96,15 +96,16 @@
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));</script>
 
-      <!-- Your customer chat code -->
-      <div class="fb-customerchat"
-        attribution=setup_tool
-        page_id="494649410735577">
-      </div>
+    <!-- Your customer chat code -->
+    @*<div class="fb-customerchat"
+         attribution=setup_tool
+         page_id="494649410735577">
+    </div>*@
+    <div class="fb-customerchat" attribution=setup_tool page_id="494649410735577" greeting_dialog_display="fade" greeting_dialog_delay="10"></div>
 
 
     <!-- Main Render Entry Point -->
-    
+
     <main role="main" class="pb-3">
         @RenderBody()
     </main>
