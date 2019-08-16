@@ -56,6 +56,11 @@
                                 Projects
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <a class="dropdown-item" asp-controller="Projects" asp-action="Create">Add New Project</a>
+                                }
                                 <a class="dropdown-item" asp-controller="Projects" asp-action="Index">All</a>
                                 <a class="dropdown-item" asp-controller="Projects" asp-action="Tag" asp-route-tag="Kitchen">Kitchens</a>
                                 <a class="dropdown-item" asp-controller="Projects" asp-action="Tag" asp-route-tag="Commercial">Commercial</a>
