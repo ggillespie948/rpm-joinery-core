@@ -430,6 +430,18 @@ button.accept-policy {
     }
 }
 
+@media screen and (min-height: 700px) {
+    .overlay {
+        display: none;
+        z-index: 0;
+    }
+
+    .overlay-right {
+        display: none;
+        z-index: 0;
+    }
+}
+
 .overlay {
     position: absolute;
     top: 0;
