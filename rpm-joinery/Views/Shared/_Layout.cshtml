@@ -1,114 +1,229 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title> @ViewBag.Title | RPM Joinery & Maintenance </title>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <meta name="description" content='@(ViewBag.MetaDescription ?? "Welcome to the site!")'>
-    <meta name="keywords" value="@ViewBag.MetaKeywords" />
+<meta charset="utf-8">
+<title>Woodzone  - Solutions With Wood HTML Template | Home Page 02</title>
+<!-- Stylesheets -->
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="plugins/revolution/css/settings.css" rel="stylesheet" type="text/css"><!-- REVOLUTION SETTINGS STYLES -->
+<link href="plugins/revolution/css/layers.css" rel="stylesheet" type="text/css"><!-- REVOLUTION LAYERS STYLES -->
+<link href="plugins/revolution/css/navigation.css" rel="stylesheet" type="text/css"><!-- REVOLUTION NAVIGATION STYLES -->
+<link href="css/style.css" rel="stylesheet">
+<link href="css/responsive.css" rel="stylesheet">
+  
+<!--Color Themes-->
+<link id="theme-color-file" href="css/color-themes/default-theme.css" rel="stylesheet">
 
-    <environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-    </environment>
-    <environment exclude="Development">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
-              crossorigin="anonymous"
-              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
-    </environment>
-    <link rel="stylesheet" href="~/css/site.css" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
-    <link href="~/css/lightbox.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
-    <link rel="icon" href="~/img/rpmfavicon.ico">
+<link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+<link rel="icon" href="images/favicon.png" type="image/x-icon">
+<!-- Responsive -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+<!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
 </head>
+
 <body>
-    <header>
-        <link rel="stylesheet" type="text/css" href="//wpcc.io/lib/1.0.2/cookieconsent.min.css" />
-        <script src="//wpcc.io/lib/1.0.2/cookieconsent.min.js"></script>
-        <script>window.addEventListener("load", function () { window.wpcc.init({ "border": "thin", "corners": "small", "colors": { "popup": { "background": "#222222", "text": "#ffffff", "border": "#f9f9f9" }, "button": { "background": "#f9f9f9", "text": "#000000" } }, "content": { "href": "https://rpm-joinery20190812070745.azurewebsites.net/Cookies" }, "margin": "small", "padding": "small", "fontsize": "small" }) });</script>
-        <!-- Navigation -->
-        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark-transparent fixed-top">
-            <div class="container">
-                <!-- <a class="navbar-brand" href="index.html">Start Bootstrap</a> -->
-                <a href="@Url.Action("Index","Home")"> <img src="../../img/rpm-logo-trans.png" width="200px" alt="RPM Joinery Logo"> </a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" onclick="darkenNavbar();">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" id="home-link" href="@Url.Action("Index","Home")">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="about-link" href="@Url.Action("About","Home")">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="services-link" href="@Url.Action("Services","Home")">Services</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="contact-link" href="@Url.Action("Contact","Home")">Contact</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="projects-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Projects
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-
-                                @if (User.Identity.IsAuthenticated)
-                                {
-                                    <a class="dropdown-item" asp-controller="Projects" asp-action="Create">Add New Project</a>
-                                }
-                                <a class="dropdown-item" asp-controller="Projects" asp-action="Index">All</a>
-                                <a class="dropdown-item" asp-controller="Projects" asp-action="Tag" asp-route-tag="Kitchen">Kitchens</a>
-                                <a class="dropdown-item" asp-controller="Projects" asp-action="Tag" asp-route-tag="Commercial">Commercial</a>
-                                <a class="dropdown-item" asp-controller="Projects" asp-action="Tag" asp-route-tag="Bathroom">Bathrooms</a>
-                                <a class="dropdown-item" asp-controller="Projects" asp-action="Tag" asp-route-tag="Flooring">Flooring</a>
-                                <a class="dropdown-item" asp-controller="Projects" asp-action="Tag" asp-route-tag="Maintenance">Maintenance</a>
-                            </div>
-                        </li>
-
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <li>
-                                <a asp-controller="Home" asp-action="Logout" class="btn btn-danger">Log Out</a>
-                            </li>
-                        }
-
-                    </ul>
+    <div class="page-wrapper">
+    <!-- Preloader -->
+    <div class="preloader"></div>
+    
+        <!-- Main Header-->
+    <header class="main-header header-style-two">
+        <!--Header Top-->
+        <div class="header-top">
+            <div class="auto-container">
+                <div class="inner-container clearfix">
+                    <div class="top-right">
+                        <ul class="info-list clearfix">
+                            <li><a href="#"><i class="icon flaticon-worldwide"></i>North East, Scotland</a></li>
+                            <li><a href="#"><i class="icon flaticon-phone-call"></i>07807078294</a></li>
+                            <li><a href="#"><i class="icon flaticon-email-1"></i>rpmjoinery@inquiry.com</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </nav>
+        </div>
+        <!-- End Header Top -->
+
+        <!-- Header Lower -->
+        <div class="header-lower">
+            <div class="auto-container">
+                <div class="inner-container clearfix">
+                    <div class="logo-outer">
+                        <div class="logo"><a href="index.html"><img src="~/img/rpm-logo-trans.png" alt="" title=""></a></div>
+                    </div>
+
+                    <div class="nav-outer">
+                        <!-- Main Menu -->
+                        <nav class="main-menu navbar-expand-md ">
+                            <div class="navbar-header">
+                                <!-- Toggle Button -->      
+                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="icon fa fa-bars"></span>
+                                </button>
+                            </div>
+                            
+                            <div class="collapse navbar-collapse clearfix" id="navbarSupportedContent">
+                                <ul class="navigation clearfix">
+                                    <li class="current dropdown"><a href="#">Home</a>
+                                        <ul>
+                                            <li><a href="index.html">Home page 01</a></li>
+                                            <li><a href="index-2.html">Home page 02</a></li>
+                                            <li class="dropdown"><a href="#">Header Styles</a>
+                                                <ul>
+                                                    <li><a href="index.html">Header Style One</a></li>
+                                                    <li><a href="index-2.html">Header Style Two</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown"><a href="#">About </a>
+                                        <ul>
+                                            <li><a href="about.html">About Us</a></li>
+                                            <li><a href="team.html">Team</a></li>
+                                            <li><a href="pricing.html">Price List</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown"><a href="#">Services</a>
+                                        <ul>
+                                            <li><a href="services.html">All Services</a></li>
+                                            <li><a href="service-detail.html">General Carpentry</a></li>
+                                            <li><a href="service-detail.html">Hang Paintings</a></li>
+                                            <li><a href="service-detail.html">Furniture Design</a></li>
+                                            <li><a href="service-detail.html">Commercial work</a></li>
+                                            <li><a href="service-detail.html">Furniture Remodeling</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown"><a href="#">Projects</a>
+                                        <ul>
+                                            <li><a href="projects.html">Projects</a></li>
+                                            <li><a href="project-detail.html">Projects Detail</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown"><a href="#">Blog</a>
+                                        <ul>
+                                            <li><a href="blog.html">Blog</a></li>
+                                            <li><a href="blog-detail.html">Blog Detail</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown"><a href="#">shop</a>
+                                        <ul>
+                                            <li><a href="products.html">Our Products</a></li>
+                                        <li><a href="product-single.html">Product Details</a></li>
+                                        <li><a href="shopping-cart.html">Shopping Cart</a></li>
+                                        <li><a href="checkout.html">Checkout</a></li>
+                                        <li><a href="login.html">Register / Login</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="contact.html">Contact</a></li>
+                                </ul>
+                            </div>
+                        </nav><!-- Main Menu End-->
+
+                        <!-- Outer Box -->
+                        <div class="outer-box">
+                            <!-- Cart button -->
+                            <div class="cart-btn">
+                                <a href="shopping-cart.html"><span class="count">2</span><span class="icon flaticon-shopping-bag"></span></a>
+                            </div>
+
+                            <!--Search Box-->
+                            <div class="search-box-outer">
+                                <div class="dropdown">
+                                    <button class="search-box-btn dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fa fa-search"></span></button>
+                                    <ul class="dropdown-menu pull-right search-panel" aria-labelledby="dropdownMenu3">
+                                        <li class="panel-outer">
+                                            <div class="form-container">
+                                                <form method="post" action="blog.html">
+                                                    <div class="form-group">
+                                                        <input type="search" name="field-name" value="" placeholder="Search Here" required>
+                                                        <button type="submit" class="search-btn"><span class="fa fa-search"></span></button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Header Lower-->
+
+                <!-- Sticky Header -->
+        <div class="sticky-header">
+            <div class="auto-container clearfix">
+                <!--Logo-->
+                <div class="logo pull-left">
+                    <a href="index.html" title=""><img src="~/img/rpm-logo-trans.png" style="max-width:250px; color:black;" alt="" title=""></a>
+                </div>
+                <!--Right Col-->
+                <div class="pull-right">
+                    <!-- Main Menu -->
+                    <nav class="main-menu">
+                        <div class="navbar-collapse show collapse clearfix">
+                            <ul class="navigation clearfix">
+                                <li class="current dropdown"><a href="#">Home</a>
+                                    <ul>
+                                        <li><a href="index.html">Home page 01</a></li>
+                                        <li><a href="index-2.html">Home page 02</a></li>
+                                        <li class="dropdown"><a href="#">Header Styles</a>
+                                            <ul>
+                                                <li><a href="index.html">Header Style One</a></li>
+                                                <li><a href="index-2.html">Header Style Two</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="#">About </a>
+                                    <ul>
+                                        <li><a href="about.html">About Us</a></li>
+                                        <li><a href="team.html">Team</a></li>
+                                        <li><a href="pricing.html">Price List</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="#">Services</a>
+                                    <ul>
+                                        <li><a href="services.html">All Services</a></li>
+                                        <li><a href="service-detail.html">General Carpentry</a></li>
+                                        <li><a href="service-detail.html">Hang Paintings</a></li>
+                                        <li><a href="service-detail.html">Furniture Design</a></li>
+                                        <li><a href="service-detail.html">Commercial work</a></li>
+                                        <li><a href="service-detail.html">Furniture Remodeling</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="#">Projects</a>
+                                    <ul>
+                                        <li><a href="projects.html">Projects</a></li>
+                                        <li><a href="project-detail.html">Projects Detail</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="#">Blog</a>
+                                    <ul>
+                                        <li><a href="blog.html">Blog</a></li>
+                                        <li><a href="blog-detail.html">Blog Detail</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="#">shop</a>
+                                    <ul>
+                                        <li><a href="products.html">Our Products</a></li>
+                                        <li><a href="product-single.html">Product Details</a></li>
+                                        <li><a href="shopping-cart.html">Shopping Cart</a></li>
+                                        <li><a href="checkout.html">Checkout</a></li>
+                                        <li><a href="login.html">Register / Login</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="contact.html">Contact</a></li>
+                            </ul>
+                        </div>
+                    </nav><!-- Main Menu End-->
+                </div>
+            </div>
+        </div>
     </header>
-
-    <!-- Load Facebook SDK for JavaScript -->
-    <div id="fb-root"></div>
-    <script>
-        window.fbAsyncInit = function() {
-          FB.init({
-            xfbml            : true,
-            version          : 'v4.0'
-          });
-        };
-
-        (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = 'https://connect.facebook.net/en_GB/sdk/xfbml.customerchat.js';
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));</script>
-
-    <!-- Your customer chat code -->
-    @*<div class="fb-customerchat"
-         attribution=setup_tool
-         page_id="494649410735577">
-    </div>*@
-    <div class="fb-customerchat" attribution=setup_tool page_id="494649410735577" greeting_dialog_display="fade" greeting_dialog_delay="10"></div>
-
-
     <!-- Main Render Entry Point -->
 
     <main role="main" class="pb-3">
@@ -170,54 +285,35 @@
     </div>
 
 
-    <!-- Footer -->
-    <footer class="py-5 bg-dark">
-        <p class="m-0 text-center text-white">Copyright &copy; RPM Joinery & Maintainance 2019</p>
-        <p class="m-0 text-center text-white">Website Design by Gary Gillespie</p>
-        <!-- /.container -->
-    </footer>
+    
+<!--Scroll to top-->
+<div class="scroll-to-top scroll-to-target" data-target="html"><span class="fa fa-angle-double-up"></span></div>
 
-    <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
-        </script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
-        </script>
-    </environment>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
-    <script src="~/js/jquery.equalheights.js"></script>
-    <script src="~/js/lightbox.js"></script>
-    <script>
-        $(function () {
-            $(document).scroll(function () {
-                var $nav = $(".navbar");
-                $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
-            });
-        });
-    </script>
-    <script>
-        AOS.init();
-    </script>
-    <script>
-    function darkenNavbar ()
-    {
-        var $nav = $(".navbar");
-        $nav.addClass('scrolled');
-    }
-    </script>
+<script src="js/jquery.js"></script> 
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<!--Revolution Slider-->
+<script src="plugins/revolution/js/jquery.themepunch.revolution.min.js"></script>
+<script src="plugins/revolution/js/jquery.themepunch.tools.min.js"></script>
+<script src="plugins/revolution/js/extensions/revolution.extension.actions.min.js"></script>
+<script src="plugins/revolution/js/extensions/revolution.extension.carousel.min.js"></script>
+<script src="plugins/revolution/js/extensions/revolution.extension.kenburn.min.js"></script>
+<script src="plugins/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
+<script src="plugins/revolution/js/extensions/revolution.extension.migration.min.js"></script>
+<script src="plugins/revolution/js/extensions/revolution.extension.navigation.min.js"></script>
+<script src="plugins/revolution/js/extensions/revolution.extension.parallax.min.js"></script>
+<script src="plugins/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
+<script src="plugins/revolution/js/extensions/revolution.extension.video.min.js"></script>
+<script src="js/main-slider-script.js"></script>
+<!--End Revolution Slider-->
+<script src="js/jquery.fancybox.js"></script>
+<script src="js/owl.js"></script>
+<script src="js/wow.js"></script>
+<script src="js/jquery-ui.js"></script>
+<script src="js/appear.js"></script>
+<script src="js/mixItUp.js"></script>
+<script src="js/isotope.js"></script>
+<script src="js/script.js"></script>
 
     @RenderSection("Scripts", required: false)
 </body>

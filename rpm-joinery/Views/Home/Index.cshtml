@@ -13,18 +13,6 @@
         <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
     </ol>
     <div class="carousel-inner" role="listbox">
-        <div class="overlay">
-            <img src="~/img//carousel-overlay-1.png" class="image-responsive" data-aos="fade-right" data-aos-duration="3000" />
-        </div>
-        <div class="overlay-right">
-            <img src="~/img//carousel-overlay-2.png" class="image-responsive" data-aos="fade-left" data-aos-duration="3000" />
-        </div>
-        <div class="overlay-right">
-            <img src="~/img//carousel-overlay-3.png" class="image-responsive" data-aos="fade-left" data-aos-duration="3000" />
-        </div>
-        <div class="overlay">
-            <img src="~/img//carousel-overlay-4.png" class="image-responsive" data-aos="fade-right" data-aos-duration="2500" />
-        </div>
         <!-- Slide One - Set the background image for this slide in the line below -->
         <div class="carousel-item active" data-parallax="scroll" data-image-src="../img/carousel_kitchen.jpeg" style="background-image: url(../img/carousel_kitchen.jpeg)">
             <div class="carousel-caption">
@@ -152,18 +140,5 @@
         $(".navbar").removeClass('bg-dark');
         $(".navbar").addClass('bg-dark-transparent');
         $('#home-link').addClass('active');
-    </script>
-    <script>
-        window.onresize = doALoadOfStuff;
-        doALoadOfStuff();
-        function doALoadOfStuff() {
-            var cardContentList = document.getElementsByClassName(".card_content");
-            var maxHeight = 0;
-            for (var i = 0; i < cardContentList.Length; i++) {
-                if ($(cardContentList.item(i)).height() > maxHeight)
-                    maxHeight = $(cardContentList.item(i)).height();
-            }
-            $(".card_content").equalHeights(maxHeight);
-        }
     </script>
 }

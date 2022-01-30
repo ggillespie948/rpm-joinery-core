@@ -47,8 +47,11 @@ namespace rpm_joinery
             });
 
 
+            //options.UseSqlServer(Environment.GetEnvironmentVariable("DB_CONNECTION", EnvironmentVariableTarget.Process)));
             services.AddDbContext<ApplicationDbContext>(options =>
-                 options.UseSqlServer(Environment.GetEnvironmentVariable("DB_CONNECTION", EnvironmentVariableTarget.Process)));
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
