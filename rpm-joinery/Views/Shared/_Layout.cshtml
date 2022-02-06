@@ -67,56 +67,37 @@
                             <div class="collapse navbar-collapse clearfix" id="navbarSupportedContent">
                                 <ul class="navigation clearfix">
                                     <li class="current dropdown"><a href="#">Home</a>
-                                        <ul>
-                                            <li><a href="index.html">Home page 01</a></li>
-                                            <li><a href="index-2.html">Home page 02</a></li>
-                                            <li class="dropdown"><a href="#">Header Styles</a>
-                                                <ul>
-                                                    <li><a href="index.html">Header Style One</a></li>
-                                                    <li><a href="index-2.html">Header Style Two</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
                                     </li>
-                                    <li class="dropdown"><a href="#">About </a>
+                                    <li class="dropdown"><a  asp-controller="Home" asp-action="About">About </a>
                                         <ul>
-                                            <li><a href="about.html">About Us</a></li>
+                                            <li><a asp-controller="Home" asp-action="About">About Us</a></li>
                                             <li><a href="team.html">Team</a></li>
                                             <li><a href="pricing.html">Price List</a></li>
                                         </ul>
                                     </li>
                                     <li class="dropdown"><a href="#">Services</a>
                                         <ul>
-                                            <li><a href="services.html">All Services</a></li>
-                                            <li><a href="service-detail.html">General Carpentry</a></li>
-                                            <li><a href="service-detail.html">Hang Paintings</a></li>
-                                            <li><a href="service-detail.html">Furniture Design</a></li>
-                                            <li><a href="service-detail.html">Commercial work</a></li>
-                                            <li><a href="service-detail.html">Furniture Remodeling</a></li>
+                                            <li><a asp-controller="Services" asp-action="Tag" asp-route-tag="All">All Services</a></li>
+                                            <li><a asp-controller="Services" asp-action="Tag" asp-route-tag="Commericial">Commericial</a></li>
+                                            <li><a asp-controller="Services" asp-action="Tag" asp-route-tag="Domestic">Domestic</a></li>
+                                            <li><a asp-controller="Services" asp-action="Tag" asp-route-tag="Industrial">Industrial</a></li>
                                         </ul>
                                     </li>
-                                    <li class="dropdown"><a href="#">Projects</a>
+                                    <li class="dropdown"><a href="#">Maintenance</a>
                                         <ul>
-                                            <li><a href="projects.html">Projects</a></li>
-                                            <li><a href="project-detail.html">Projects Detail</a></li>
+                                            <li><a asp-controller="Services" asp-action="PlannedMaintenance">Planned Maintenance</a></li>
+                                            <li><a asp-controller="Services" asp-action="ReactiveMaintenance">Reactive Maintenance</a></li>
                                         </ul>
                                     </li>
-                                    <li class="dropdown"><a href="#">Blog</a>
+                                    <li class="dropdown"><a href="#">Case Studies</a>
                                         <ul>
-                                            <li><a href="blog.html">Blog</a></li>
-                                            <li><a href="blog-detail.html">Blog Detail</a></li>
+                                            <li><a>TBC</a></li>
+                                            <li><a>TBC</a></li>
+                                            <li><a>TBC</a></li>
+                                            <li><a>TBC</a></li>
                                         </ul>
                                     </li>
-                                    <li class="dropdown"><a href="#">shop</a>
-                                        <ul>
-                                            <li><a href="products.html">Our Products</a></li>
-                                        <li><a href="product-single.html">Product Details</a></li>
-                                        <li><a href="shopping-cart.html">Shopping Cart</a></li>
-                                        <li><a href="checkout.html">Checkout</a></li>
-                                        <li><a href="login.html">Register / Login</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="contact.html">Contact</a></li>
+                                    <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
                                 </ul>
                             </div>
                         </nav><!-- Main Menu End-->
@@ -124,9 +105,9 @@
                         <!-- Outer Box -->
                         <div class="outer-box">
                             <!-- Cart button -->
-                            <div class="cart-btn">
+                         @*   <div class="cart-btn">
                                 <a href="shopping-cart.html"><span class="count">2</span><span class="icon flaticon-shopping-bag"></span></a>
-                            </div>
+                            </div>*@
 
                             <!--Search Box-->
                             <div class="search-box-outer">

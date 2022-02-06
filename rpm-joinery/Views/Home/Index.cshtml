@@ -108,11 +108,11 @@
             @{
                 var delayOffset = 0;
             }
-            @foreach (var project in Model)
+            @foreach (Project project in Model)
             {
                 <li class="cards_item" data-aos="fade-up" data-aos-delay="@delayOffset">
                     <div class="card">
-                        <div class="card_image"><a href="@Url.Action("Details", "Projects", new { id = project.Id })"><img class="card-img-top" src='@project.Images.Where(i=>i.IsPrimaryImage).FirstOrDefault().ImageFilePath'></a></div>
+                        <div cvass="card_image"><a href="@Url.Action("Details", "Projects", new { id = project.Id })"><img class="card-img-top" src='@project.Images.Where(i=>i.IsPrimaryImage).FirstOrDefault().ImageFilePath'></a></div>
                         <div class="card_content">
                             <h2 class="card_title">@project.Title</h2>
                             @if (project.Description.Length > 80)

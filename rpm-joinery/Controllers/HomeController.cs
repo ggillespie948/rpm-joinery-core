@@ -41,6 +41,7 @@ namespace rpm_joinery.Controllers
                 .Where(i => i.Images.Count > 0)
                 .Take(6)
                 .ToList();
+
             return View(projects);
         }
 
@@ -112,14 +113,14 @@ namespace rpm_joinery.Controllers
 
         }
 
-        [Route("services")]
-        public IActionResult Services()
-        {
-            ViewBag.Title = "Services | RPM Joinery and Maintenance";
-            ViewBag.MetaDescription = "RPM Joinery and Maintenance offer a wide range of services ranging from domestic to commercial.We offer services in fitting kitchens, bathrooms and more.";
-            ViewBag.MetaKeywords = "RPM services, kitchen dundee, bathrooms dundee, maintenance dundee, decking, joinery services, joinery carpenter dundee angus perth";
-            return View();
-        }
+        //[Route("services")]
+        //public IActionResult Services()
+        //{
+        //    ViewBag.Title = "Services | RPM Joinery and Maintenance";
+        //    ViewBag.MetaDescription = "RPM Joinery and Maintenance offer a wide range of services ranging from domestic to commercial.We offer services in fitting kitchens, bathrooms and more.";
+        //    ViewBag.MetaKeywords = "RPM services, kitchen dundee, bathrooms dundee, maintenance dundee, decking, joinery services, joinery carpenter dundee angus perth";
+        //    return View();
+        //}
 
         [Route("Cookies")]
         public IActionResult Cookies()
