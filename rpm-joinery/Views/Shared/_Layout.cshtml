@@ -51,7 +51,7 @@
             <div class="auto-container">
                 <div class="inner-container clearfix">
                     <div class="logo-outer">
-                        <div class="logo"><a href="index.html"><img src="~/img/rpm-logo-trans.png" alt="" title=""></a></div>
+                        <div class="logo"><a asp-controller="Home" asp-action="Index"><img src="~/img/rpm-logo-trans.png" alt="" title=""></a></div>
                     </div>
 
                     <div class="nav-outer">
@@ -72,12 +72,11 @@
                                         <ul>
                                             <li><a asp-controller="Home" asp-action="About">About Us</a></li>
                                             <li><a href="team.html">Team</a></li>
-                                            <li><a href="pricing.html">Price List</a></li>
                                         </ul>
                                     </li>
-                                    <li class="dropdown"><a href="#">Services</a>
+                                    <li class="dropdown"><a asp-controller="Services" asp-action="Index">Services</a>
                                         <ul>
-                                            <li><a asp-controller="Services" asp-action="Tag" asp-route-tag="All">All Services</a></li>
+                                            <li><a asp-controller="Services" asp-action="Index">All Services</a></li>
                                             <li><a asp-controller="Services" asp-action="Tag" asp-route-tag="Commericial">Commericial</a></li>
                                             <li><a asp-controller="Services" asp-action="Tag" asp-route-tag="Domestic">Domestic</a></li>
                                             <li><a asp-controller="Services" asp-action="Tag" asp-route-tag="Industrial">Industrial</a></li>
@@ -207,9 +206,9 @@
     </header>
     <!-- Main Render Entry Point -->
 
-    <main role="main" class="pb-3">
+    <div class="page-wrapper">
         @RenderBody()
-    </main>
+    </div>
     @*<div class="credit-container" id="credit-container">
             <a href="@Url.Action("About","Home")"> <img src="../../img/DttLogo.png" height="64" alt="Dundee Trusted Trader Scheme Logo" align="middle"> </a>
             <a href="@Url.Action("About","Home")"> <img src="../../img/ArtsLogo.png" height="64" alt="Angus Reputable Trader Logo" align="middle"> </a>
@@ -218,7 +217,7 @@
 
     @*<img src="~/img/waves2.png" class="waves-img" style="position: relative;
         z-index:100;" />*@
-    <div class="get-in-touch-container">
+    @*<div class="get-in-touch-container">
         <br />
         <div class="container" style="text-align: center;">
             <div class="col-md-5 col-sm-6">
@@ -232,7 +231,7 @@
             </div>
 
         </div>
-    </div>
+    </div>*@
 
     @await Html.PartialAsync("~/Views/Shared/_Footer.cshtml")
 

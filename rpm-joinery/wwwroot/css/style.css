@@ -412,8 +412,10 @@ img{
 
 .main-header .header-upper{
 	position:relative;
-	background-color: #ffffff;
+	background-color: #000000;
 	z-index: 99999;
+	padding-top: 20px;
+	padding-bottom: 5px;
 }
 
 .main-header .header-upper .logo-outer{
@@ -468,13 +470,12 @@ img{
 	position:relative;
 	font-size:14px;
 	line-height:20px;
-	color:#222222;
+	color:#ffffff;
 	font-weight:400;
-	text-transform:capitalize;
 }
 
 .main-header .info-box li a{
-	color: #222222;
+	color: #ffffff;
 	display: inline-block;
 	-webkit-transition: all 300ms ease;
 	-moz-transition: all 300ms ease;
@@ -852,12 +853,12 @@ img{
 
 ***/
 
-.header-style-two{
+.header-style-two {
 	position: absolute;
 	left: 0;
 	top: 0;
 	width: 100%;
-	background-color: rgba(0,0,0,0.40);
+	background-color: #000000;
 	border-top: 0;
 }
 
@@ -1097,7 +1098,7 @@ img{
 	z-index: 99999;
 	background: #ffffff;
 	background-color: black;
-	border-bottom: 1px solid #c08c4d;
+	/*border-bottom: 2px solid #c08c4d;*/
 	box-shadow: 0 5px 5px rgba(0,0,0,0.05);
 }
 
@@ -1108,9 +1109,14 @@ img{
 	visibility: visible;
 }
 
-.fixed-header .sticky-header .logo{
-	padding: 10px 0;
+.fixed-header .sticky-header .logo {
+	position: relative;
+	display: inline-block;
+	max-width: 250px;
+	padding: 10px;
 }
+
+
 
 .main-header .sticky-header .main-menu .navigation > li{
 	margin-right: 0;
@@ -1143,6 +1149,8 @@ img{
 	opacity:1;
 	color: #bf8c4d;
 	background-color: black;
+	text-decoration: underline;
+	text-underline-offset: 5px;
 }
 
 .sticky-header .main-menu .navigation > li:before,

@@ -65,6 +65,16 @@ namespace rpm_joinery.Controllers
             return View();
         }
 
+        [Route("team")]
+        public IActionResult Team()
+        {
+            //Set SEO keywords, description, and other meta data in view bag so can be changed dynamically in layout
+            ViewBag.Title = "Our Team | RPM Joinery and Maintenance";
+            ViewBag.MetaDescription = "RPM Joinery and Maintenance is a family run business that take great pride in providing the best possible service to meet all of our consumer's needs.";
+            ViewBag.MetaKeywords = "RPM joinery maintenance, reliable joiner, trusted joiner dundee, quality cheap joiner dundee angus, about rpm dundee, trusted trader dundee joiner, trusted joiner angus, family run joiner dundee";
+            return View();
+        }
+
         [Route("contact")]
         public IActionResult Contact()
         {
