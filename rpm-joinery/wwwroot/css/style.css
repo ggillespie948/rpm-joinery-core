@@ -1573,6 +1573,8 @@ img{
 	position: absolute;
 	right: 55px;
 	bottom: 0;
+	border:none;
+	box-shadow:none;
 }
 
 /*** 
@@ -2287,11 +2289,11 @@ img{
 	float:left;
 	left:0px;
 	top:0px;
-	width:50%;
+	width:75%;
 	height:100%;
 	background-repeat:no-repeat;
 	background-position:center center;
-	background-size:cover;	
+	/*background-size:cover;	*/
 }
 
 .fluid-section-one .image-column .image-box{
