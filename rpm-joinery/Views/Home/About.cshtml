@@ -1,1 +1,120 @@
-﻿s
+﻿ <!--Page Title-->
+    <section class="page-title" style="background-image:url(images/background/7.jpg);">
+        <div class="auto-container">
+            <div class="inner-container clearfix">
+                <h1>About Us</h1>
+                <ul class="bread-crumb clearfix">
+                    <li><a href="index.html">Home</a></li>
+                    <li>About Us</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!--End Page Title-->
+
+    <!-- About Us -->
+    <section class="about-us">
+        <div class="auto-container">
+            <div class="row clearfix">
+                <!-- Content Column -->
+                <div class="content-column order-3 col-lg-6 col-md-12 col-sm-12">
+                    <div class="inner-column">
+                        <div class="sec-title">
+                            <h2>About Us</h2>
+                        </div>
+                        <div class="message">Over 25 Years Experience in This Industry</div>
+                        <div class="text">
+                            <p>Our commitment to bring professionalism, good service & trust to the home repair service & maintenance business. We take immense pride in sending some of the most of professional handymen to yours homes to fix things that aren't workings. We have fixed over 5,50,000 houses in our little over 25 years of existence so far.</p>
+                            <p>Since our meetings take place in your home or office, we’ll work with you to help visualize a design solution that aligns with your taste and bugjet, To provide customers with home repair service experience that delights them and become their best-handy-friend.</p>
+                        </div>
+                        <div class="link-box clearfix">
+                            <a href="about.html" class="theme-btn btn-style-one">Read More</a>
+                            <a href="#" class="call-btn">
+                                <i class="icon fa fa-phone"></i>
+                                <span>Hotline</span> + 62 867 6872
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Images Column -->
+                <div class="images-column col-lg-6 col-md-12 col-sm-12">
+                    <div class="inner-column">
+                       <div class="image-box">
+                           <figure class="image wow fadeIn"><img src="images/resource/image-3.jpg" alt=""></figure>
+                           @*<figure class="image-2 wow fadeInLeft" data-wow-delay="600ms"><img src="images/resource/about-img-1.jpg" alt=""></figure>*@
+                           <figure class="image-3 wow fadeInRight" data-wow-delay="600ms"><img src="~/images/rpm/rpm-van-holder.png" alt=""></figure>
+                       </div>
+                    </div>                
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End About Us -->
+
+    <!-- Call Back Section -->
+    <section class="call-back-section" style="background-image: url(images/background/5.jpg);">        
+        <div class="auto-container">
+            <div class="row clearfix">
+                <div class="content-column col-lg-6 col-md-12 col-sm-12">
+                    <div class="inner-column">
+                        <div class="sec-title light">
+                            <h2>Call to Action</h2>
+                        </div>
+                        <h4>Request Free Consultation</h4>
+                        <div class="message">25 Years of Experience <br>in Woodworks & Business <span>Services</span></div>
+                        <div class="text">Send us a email and we’ll get in touch shortly, or phone between 9:00 and<br> 8:00 Monday to Friday - We would be delighted to speak.</div>
+                        <div class="btn-box"><a href="about.html" class="theme-btn btn-style-two">Contact Now</a></div>
+                    </div>
+                </div>
+
+                <!-- Form Column -->
+                <div class="form-column col-lg-6 col-md-12 col-sm-12">
+                    <div class="inner-column">
+                        <div class="appointment-form">
+                            <form method="post" action="index.html">
+                                <div class="row">
+                                    <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                                        <select class="custom-select-box">
+                                            <option>Accounting Management</option>
+                                            <option>Furniture Manufact..</option>
+                                            <option>Indoor Furniture</option>
+                                            <option>House Renovation</option>
+                                            <option>Repairing</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                                        <input type="text" name="username" placeholder="Name" required>
+                                    </div>
+
+                                    <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                                        <input type="email" name="email" placeholder="Email" required>
+                                    </div>
+                                    
+                                    <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                                        <input type="text" name="phone" placeholder="Phone" required>
+                                    </div>
+                                    
+                                    <div class="form-group col-lg-12 col-md-12 col-sm-12">
+                                        <textarea name="message" placeholder="Massage"></textarea>
+                                    </div>
+
+                                    <div class="form-group col-lg-12 col-md-12 col-sm-12 text-center">
+                                        <button class="theme-btn btn-style-three" type="submit" name="submit-form">Submit Request</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--End Call Back Section -->
+
+
+     @await Html.PartialAsync("~/Views/Shared/Sections/_OurTeam.cshtml")
+
+     @await Html.PartialAsync("~/Views/Shared/Sections/_WhyChooseUs.cshtml")
+
