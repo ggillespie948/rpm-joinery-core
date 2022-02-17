@@ -1,1 +1,116 @@
-﻿
+﻿<!--Page Title-->
+    <section class="page-title" style="background-image:url(images/background/7.jpg);">
+        <div class="auto-container">
+            <div class="inner-container clearfix">
+                <h1>Contact Us</h1>
+                <ul class="bread-crumb clearfix">
+                    <li><a href="index.html">Home</a></li>
+                    <li>Contact Us</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!--End Page Title-->
+
+    <!-- Contact Page Section -->
+    <section class="contact-page-section">
+        <div class="auto-container">
+            <div class="heading-box clearfix">
+                <div class="sec-title">
+                    <h2>Contact Us</h2>
+                    <div class="text">if You get any information contact now</div>
+                </div>
+                <div class="text">
+                    <p>You can talk to our online representative at any time. Please use our Live Chat System on our website or Fill up below instant messaging programs. Please be patient, We will get back to you. Our 24/7 Support,</p>
+                </div>
+            </div>
+            <div class="row clearfix">
+                <!-- Form Column -->
+                <div class="form-column col-xl-9 col-lg-8 col-md-12 col-sm-12">
+                    <div class="contact-form-two">
+                        <form method="post" action="sendemail.php" id="contact-form">
+                            <div class="row clearfix">
+                                <div class="col-md-6 col-sm-12 form-group">
+                                    <input type="text" name="username" placeholder="Name" required>
+                                </div>
+                                
+                                <div class="col-md-6 col-sm-12 form-group">
+                                    <input type="email" name="email" placeholder="Email" required>
+                                </div>
+
+                                <div class="col-md-6 col-sm-12 form-group">
+                                    <input type="text" name="subject" placeholder="Subject" required>
+                                </div>
+
+                                <div class="col-md-6 col-sm-12 form-group">
+                                    <input type="text" name="phone" placeholder="Phone" required>
+                                </div>
+
+                                <div class="col-md-12 col-sm-12 form-group">
+                                    <textarea name="message" placeholder="Your Massage"></textarea>
+                                </div>
+                                
+                                <div class="col-md-12 col-sm-12 form-group">
+                                    <button class="theme-btn btn-style-one" type="submit" name="Submit">Send Massage</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="contact-column col-xl-3 col-lg-4 col-md-12 col-sm-12">
+                    <div class="inner-column">
+                        <ul class="contact-info">
+                            <li>
+                                <span class="icon flaticon-home-1"></span> 
+                                <strong>13AH, San Francisco,</strong>
+                                <p>New york, United States</p>
+                            </li>
+
+                            <li>
+                                <span class="icon flaticon-email-1"></span> 
+                                <strong>Send your mail at</strong>
+                                <p><a href="#">woodzone@support.com</a></p>
+                            </li>
+
+                            <li>
+                                <span class="icon flaticon-call"></span> 
+                                <strong>Have Any Question</strong>
+                                <p>+968 547856 254</p>
+                            </li>
+
+                            <li>
+                                <span class="icon flaticon-clock-2"></span> 
+                                <strong>Working Hours</strong>
+                                <p>Mon-Sat:9.30am to 7.00pm</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Contact Section -->
+
+    <!-- Contact Map Section -->
+    <section class="contact-map-section">
+        <div class="auto-container">
+            <!--Map Outer-->
+            <div class="map-outer">
+                <!--Map Canvas-->
+                <div class="map-canvas"
+                    data-zoom="12"
+                    data-lat="-37.817085"
+                    data-lng="144.955631"
+                    data-type="roadmap"
+                    data-hue="#ffc400"
+                    data-title="Envato"
+                    data-icon-path="images/icons/map-marker.png"
+                    data-content="Melbourne VIC 3000, Australia<br><a href='mailto:info@youremail.com'>info@youremail.com</a>">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Map Section -->
+
+    @await Html.PartialAsync("~/Views/Shared/Sections/_Clients.cshtml");
