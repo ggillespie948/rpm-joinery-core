@@ -114,6 +114,13 @@ namespace rpm_joinery.Controllers
             return View(viewModel);
         }
 
+        [HttpGet]
+        public IActionResult CaseStudy()
+        {
+            var viewModel = new ProjectDetailsViewModel();
+            return View(viewModel);
+        }
+
         [HttpPost]
         [Authorize]
         public IActionResult Create(CreateProjectViewModel model)
